@@ -1,0 +1,22 @@
+{
+  "1320798380078923888": {
+    "xp": 6473,
+    "lastWeekly": 1772543557952,
+    "lastTweekly": 1772544996340,
+    "lastMonthly": 0,
+    "lastYearly": 1772543595164,
+    "activeQuest": {
+      "id": "q1",
+      "title": "⛏️ Horník",
+      "description": "Vytěž 64 kusů uhlí na Xeloria serveru.",
+      "reward": "Splněním získáš odměnu od admina nebo XP body.",
+      "tip": "Jdi do mines světa a hledej uhlí!"
+    },
+    "completedQuests": [
+      {
+        "id": "q6",
+        "completedAt": 1772543649957
+      }
+    ]
+  }
+}

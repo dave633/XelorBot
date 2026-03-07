@@ -1,0 +1,60 @@
+{
+  "1320798380078923888": {
+    "wallet": 844,
+    "bank": 0,
+    "lastWork": 1772506203545,
+    "lastClaim": 1772506229466,
+    "lastCrime": 0,
+    "lastRob": 1772506247396
+  },
+  "1433833178459541657": {
+    "wallet": 0,
+    "bank": 0,
+    "lastWork": 0,
+    "lastClaim": 0,
+    "lastCrime": 0,
+    "lastRob": 0
+  },
+  "1426207356618018906": {
+    "wallet": 260,
+    "bank": 0,
+    "lastWork": 1772722078509,
+    "lastClaim": 0,
+    "lastCrime": 0,
+    "lastRob": 0,
+    "earnings": {
+      "daily": 260,
+      "dailyReset": 1772722078509,
+      "weekly": 260,
+      "weeklyReset": 1772722078509,
+      "tweekly": 260,
+      "tweeklyReset": 1772722078509,
+      "monthly": 260,
+      "monthlyReset": 1772722078509,
+      "yearly": 260,
+      "yearlyReset": 1772722078509,
+      "alltime": 260
+    }
+  },
+  "1468142169725468673": {
+    "wallet": 278,
+    "bank": 0,
+    "lastWork": 1772752055854,
+    "lastClaim": 0,
+    "lastCrime": 0,
+    "lastRob": 0,
+    "earnings": {
+      "daily": 278,
+      "dailyReset": 1772752055854,
+      "weekly": 278,
+      "weeklyReset": 1772752055854,
+      "tweekly": 278,
+      "tweeklyReset": 1772752055854,
+      "monthly": 278,
+      "monthlyReset": 1772752055854,
+      "yearly": 278,
+      "yearlyReset": 1772752055854,
+      "alltime": 278
+    }
+  }
+}
