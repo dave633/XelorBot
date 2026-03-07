@@ -5,803 +5,462 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | XeloriaLand</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Orbitron:wght@700;900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Orbitron:wght@700;900&display=swap"
         rel="stylesheet">
     <style>
         :root {
-            --bg-deep: #0a0512;
-            --bg-card: #150b24;
-            --bg-glass: rgba(26, 11, 46, 0.4);
+            --bg-dark: #080312;
+            --bg-card: rgba(18, 10, 35, 0.7);
             --accent-purple: #7c3aed;
             --accent-red: #ef4444;
-            --text-main: #f5f5f5;
-            --text-dim: #a78bfa;
-            --sidebar-width: 320px;
+            --text-main: #ffffff;
+            --text-dim: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.08);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         body {
-            background-color: var(--bg-deep);
+            background: var(--bg-dark);
             color: var(--text-main);
             height: 100vh;
-            overflow: hidden;
             display: flex;
+            overflow: hidden;
         }
 
-        /* Bg effects */
-        .bg-glow {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 10% 10%, rgba(124, 58, 237, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 90% 90%, rgba(239, 68, 68, 0.1) 0%, transparent 40%);
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        /* Sidebar */
+        /* Sidebar Style */
         .sidebar {
-            width: var(--sidebar-width);
-            background: rgba(15, 7, 26, 0.8);
-            backdrop-filter: blur(20px);
-            border-right: 1px solid rgba(124, 58, 237, 0.2);
+            width: 320px;
+            background: rgba(10, 5, 20, 0.95);
+            border-right: 1px solid var(--glass-border);
             display: flex;
             flex-direction: column;
-            padding: 1.5rem;
-            z-index: 100;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--text-main);
-            text-decoration: none;
-            text-transform: uppercase;
-            margin-bottom: 2.5rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .sidebar-logo {
             font-family: 'Orbitron', sans-serif;
-        }
-
-        .logo span {
-            color: var(--accent-red);
-        }
-
-        .nav-group {
-            margin-bottom: 2rem;
-        }
-
-        .nav-label {
-            font-size: 0.75rem;
-            font-weight: 800;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 1rem;
+            font-weight: 900;
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
             display: block;
-            opacity: 0.6;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 0.8rem 1rem;
-            color: var(--text-main);
             text-decoration: none;
-            font-weight: 600;
+            color: white;
+            letter-spacing: 2px;
+        }
+
+        .btn-new-ticket {
+            background: linear-gradient(135deg, var(--accent-purple), #5b21b6);
+            color: white;
+            border: none;
+            padding: 1rem;
             border-radius: 12px;
-            transition: all 0.3s;
-            margin-bottom: 0.5rem;
+            font-weight: 800;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(124, 58, 237, 0.2);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
         }
 
-        .nav-item:hover,
-        .nav-item.active {
-            background: rgba(124, 58, 237, 0.15);
-            color: var(--accent-purple);
-        }
-
-        .nav-item.active {
-            background: linear-gradient(90deg, rgba(124, 58, 237, 0.2), transparent);
-            border-left: 3px solid var(--accent-purple);
+        .btn-new-ticket:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(124, 58, 237, 0.4);
         }
 
         .ticket-list {
-            flex: 1;
+            flex-grow: 1;
             overflow-y: auto;
-            margin-top: 1rem;
-            padding-right: 5px;
+            margin-bottom: 2rem;
         }
 
-        .ticket-list::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .ticket-list::-webkit-scrollbar-thumb {
-            background: rgba(124, 58, 237, 0.3);
-            border-radius: 10px;
-        }
-
-        .ticket-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(124, 58, 237, 0.1);
-            border-radius: 16px;
-            padding: 1rem;
-            margin-bottom: 1rem;
+        .ticket-item {
+            padding: 1.2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            margin-bottom: 0.8rem;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: 0.3s;
         }
 
-        .ticket-card:hover {
-            transform: translateX(5px);
+        .ticket-item:hover {
+            background: rgba(124, 58, 237, 0.1);
+            border-color: rgba(124, 58, 237, 0.3);
+        }
+
+        .ticket-item.active {
+            background: rgba(124, 58, 237, 0.15);
             border-color: var(--accent-purple);
-            background: rgba(124, 58, 237, 0.05);
-        }
-
-        .ticket-card.active {
-            border-color: var(--accent-red);
-            background: rgba(239, 68, 68, 0.05);
-        }
-
-        .ticket-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 0.5rem;
         }
 
         .ticket-id {
             font-size: 0.7rem;
             font-weight: 900;
-            color: var(--accent-red);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .ticket-status {
-            font-size: 0.65rem;
-            font-weight: 800;
-            padding: 2px 8px;
-            border-radius: 50px;
-            text-transform: uppercase;
-        }
-
-        .status-open {
-            background: rgba(16, 185, 129, 0.2);
-            color: #10b981;
-        }
-
-        .status-closed {
-            background: rgba(107, 114, 128, 0.2);
-            color: #6b7280;
-        }
-
-        .ticket-title {
-            font-size: 0.95rem;
-            font-weight: 700;
+            color: var(--accent-purple);
             margin-bottom: 0.3rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
-        .ticket-user {
-            font-size: 0.8rem;
-            color: var(--text-dim);
-            display: flex;
-            align-items: center;
-            gap: 6px;
+        .ticket-subject {
+            font-size: 0.9rem;
+            font-weight: 600;
         }
 
-        .user-avatar {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #2a1a44;
-        }
-
-        /* Main Content */
+        /* Main Chat Area */
         .main-content {
-            flex: 1;
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
-            background: rgba(10, 5, 18, 0.4);
+            background: rgba(8, 3, 18, 0.5);
             position: relative;
         }
 
         .top-bar {
-            height: 70px;
-            padding: 0 2rem;
+            padding: 1.5rem 2rem;
+            background: rgba(10, 5, 20, 0.8);
+            border-bottom: 1px solid var(--glass-border);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(124, 58, 237, 0.1);
-            background: rgba(15, 7, 26, 0.4);
             backdrop-filter: blur(10px);
         }
 
-        .search-container {
-            position: relative;
-            width: 300px;
-        }
-
-        .search-input {
-            width: 100%;
-            background: rgba(124, 58, 237, 0.05);
-            border: 1px solid rgba(124, 58, 237, 0.1);
-            border-radius: 12px;
-            padding: 0.6rem 1rem 0.6rem 2.5rem;
-            color: white;
-            font-size: 0.9rem;
-            outline: none;
-            transition: all 0.3s;
-        }
-
-        .search-input:focus {
-            border-color: var(--accent-purple);
-            box-shadow: 0 0 15px rgba(124, 58, 237, 0.2);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 0.8rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-dim);
-            font-size: 1rem;
-        }
-
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 0.4rem 1rem;
-            background: rgba(124, 58, 237, 0.1);
-            border-radius: 16px;
-            border: 1px solid rgba(124, 58, 237, 0.2);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .user-profile:hover {
-            border-color: var(--accent-red);
-            background: rgba(239, 68, 68, 0.05);
-        }
-
-        .profile-name {
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-
-        .profile-role {
-            font-size: 0.7rem;
+        #active-ticket-title {
+            font-size: 1.1rem;
             font-weight: 800;
-            color: var(--accent-red);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: block;
         }
 
-        .profile-avatar {
-            width: 38px;
-            height: 38px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-red));
-            padding: 2px;
-        }
-
-        .profile-avatar img {
-            width: 100%;
-            height: 100%;
-            border-radius: 10px;
-            object-fit: cover;
-        }
-
-        /* Chat Area */
         .chat-area {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
+            flex-grow: 1;
             padding: 2rem;
             overflow-y: auto;
+            display: flex;
+            flex-direction: column;
             gap: 1.5rem;
         }
 
-        .chat-area::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .chat-area::-webkit-scrollbar-thumb {
-            background: rgba(124, 58, 237, 0.2);
-            border-radius: 10px;
-        }
-
-        .message {
+        /* Message Bubbles */
+        .msg {
             max-width: 70%;
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
+            padding: 1.2rem;
+            border-radius: 18px;
+            line-height: 1.6;
+            animation: fadeIn 0.3s ease;
         }
 
-        .message.received {
-            align-self: flex-start;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .message.sent {
+        .msg.sent {
             align-self: flex-end;
-            text-align: right;
-        }
-
-        .message-content {
-            padding: 1rem 1.4rem;
-            border-radius: 20px;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            position: relative;
-        }
-
-        .received .message-content {
-            background: var(--bg-card);
-            border-bottom-left-radius: 4px;
-            border: 1px solid rgba(124, 58, 237, 0.2);
-        }
-
-        .sent .message-content {
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-red));
-            color: white;
+            background: var(--accent-purple);
             border-bottom-right-radius: 4px;
-            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.2);
         }
 
-        .message-info {
-            font-size: 0.75rem;
-            color: var(--text-dim);
-            display: flex;
-            gap: 8px;
-            padding: 0 5px;
+        .msg.received {
+            align-self: flex-start;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-bottom-left-radius: 4px;
         }
 
-        .sent .message-info {
-            justify-content: flex-end;
-        }
-
-        .message-author {
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        /* Input Area */
         .input-area {
             padding: 1.5rem 2rem;
-            background: rgba(15, 7, 26, 0.6);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(124, 58, 237, 0.1);
+            background: rgba(10, 5, 20, 0.9);
+            border-top: 1px solid var(--glass-border);
             display: flex;
             gap: 1rem;
             align-items: center;
         }
 
         .chat-input {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(124, 58, 237, 0.2);
-            border-radius: 16px;
-            padding: 1rem 1.5rem;
+            flex-grow: 1;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            padding: 1.2rem;
+            border-radius: 12px;
             color: white;
-            font-size: 1rem;
             outline: none;
-            transition: all 0.3s;
+            font-weight: 500;
+            transition: 0.3s;
         }
 
         .chat-input:focus {
             border-color: var(--accent-purple);
-            background: rgba(124, 58, 237, 0.08);
+            background: rgba(124, 58, 237, 0.05);
         }
 
-        .send-btn {
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-red));
-            width: 54px;
-            height: 54px;
-            border-radius: 16px;
-            border: none;
+        .btn-send {
+            background: var(--accent-purple);
             color: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
-        }
-
-        .send-btn:hover {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.5);
-        }
-
-        /* Action Buttons */
-        .ticket-actions {
-            display: flex;
-            gap: 0.8rem;
-        }
-
-        .action-btn {
-            padding: 0.6rem 1.2rem;
-            border-radius: 10px;
             border: none;
+            padding: 0 1.5rem;
+            border-radius: 12px;
+            height: 100%;
             font-weight: 800;
             cursor: pointer;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-            transition: all 0.3s;
+            transition: 0.3s;
         }
 
-        .btn-close {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--accent-red);
-            border: 1px solid rgba(239, 68, 68, 0.2);
+        /* Modals */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
         }
 
-        .btn-close:hover {
-            background: var(--accent-red);
+        .modal-content {
+            background: #110821;
+            border: 1px solid var(--glass-border);
+            padding: 3rem;
+            border-radius: 24px;
+            width: 450px;
+            text-align: center;
+        }
+
+        .modal-step h2 {
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+        }
+
+        .cat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .cat-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            padding: 1.5rem;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: 0.3s;
             color: white;
-            box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+            font-weight: 700;
         }
 
-        /* Staff Badge */
-        .staff-badge {
-            font-size: 0.6rem;
-            background: linear-gradient(90deg, #fbbf24, #f59e0b);
-            color: black;
-            padding: 1px 6px;
-            border-radius: 4px;
-            font-weight: 900;
-            margin-left: 5px;
+        .cat-btn:hover {
+            border-color: var(--accent-purple);
+            background: rgba(124, 58, 237, 0.1);
         }
 
-        /* Empty State */
-        .empty-chat {
-            flex: 1;
+        /* Overlay Login */
+        #login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #080312;
+            z-index: 3000;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            text-align: center;
-            opacity: 0.4;
-        }
-
-        .empty-icon {
-            font-size: 5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        @media (max-width: 900px) {
-            .sidebar {
-                position: fixed;
-                left: -100%;
-                transition: 0.3s;
-            }
-
-            .sidebar.active {
-                left: 0;
-            }
-
-            .main-content {
-                width: 100%;
-            }
+            align-items: center;
         }
     </style>
 </head>
 
 <body>
-    <div class="bg-glow"></div>
+    <div id="login-overlay">
+        <h1 style="font-family: 'Orbitron', sans-serif; margin-bottom: 20px;">XelorBot Dashboard</h1>
+        <p style="color: var(--text-dim); margin-bottom: 40px;">Načítání zabezpečeného spojení...</p>
+    </div>
 
-    <!-- Sidebar -->
-    <aside class="sidebar">
-        <a href="index.html" class="logo">⚡ XELORIA<span>LAND</span></a>
-
-        <div class="nav-group">
-            <span class="nav-label">Navigace</span>
-            <a href="index.html" class="nav-item">
-                🏠 Domů
-            </a>
-            <a href="#" class="nav-item active">
-                🎫 Tickety
-            </a>
+    <!-- Modal pro vytvoření ticketu -->
+    <div class="modal" id="ticket-modal">
+        <div class="modal-content">
+            <div id="step-1" class="modal-step">
+                <h2>Vyber Kategorii</h2>
+                <div class="cat-grid">
+                    <div class="cat-btn" onclick="selectCategory('Hráč', '👤')">👤 HRÁČ</div>
+                    <div class="cat-btn" onclick="selectCategory('Technický', '🛠️')">🛠️ TECH</div>
+                    <div class="cat-btn" onclick="selectCategory('Platba', '💰')">💰 PLATBA</div>
+                    <div class="cat-btn" onclick="selectCategory('Jiný', '🛸')">🛸 OSTATNÍ</div>
+                </div>
+            </div>
+            <div id="step-2" class="modal-step" style="display: none;">
+                <h2 id="selected-cat-title">🛠️ Technický Ticket</h2>
+                <input type="text" id="ticket-subject" class="chat-input" placeholder="O čem to je? (předmět)"
+                    style="width: 100%; margin-bottom: 1.5rem;">
+                <button class="btn-new-ticket" onclick="submitTicket()" style="width: 100%;">Vytvořit Ticket</button>
+                <div onclick="resetModal()"
+                    style="margin-top: 1rem; cursor: pointer; font-size: 0.8rem; color: var(--text-dim);">← Zpět</div>
+            </div>
         </div>
+    </div>
 
-        <div class="nav-group" style="flex: 1; display: flex; flex-direction: column;">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span class="nav-label">Moje Tickety</span>
-                <button
-                    style="background: none; border: 1px solid var(--accent-purple); color: var(--accent-purple); border-radius: 50%; width: 20px; height: 20px; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center;">+</button>
-            </div>
-
-            <div class="ticket-list">
-                <!-- Ticket Item -->
-                <div class="ticket-card active">
-                    <div class="ticket-header">
-                        <span class="ticket-id">#BUG-9921</span>
-                        <span class="ticket-status status-open">Otevřeno</span>
-                    </div>
-                    <div class="ticket-title">Nefunguje /kit vip na survivalu</div>
-                    <div class="ticket-user">
-                        <div class="user-avatar"></div>
-                        <span>Matěj (Ty)</span>
-                    </div>
-                </div>
-
-                <!-- Ticket Item -->
-                <div class="ticket-card">
-                    <div class="ticket-header">
-                        <span class="ticket-id">#PLAT-102</span>
-                        <span class="ticket-status status-closed">Zavřeno</span>
-                    </div>
-                    <div class="ticket-title">Koupě Unbanu (PaySafeCard)</div>
-                    <div class="ticket-user">
-                        <div class="user-avatar"></div>
-                        <span>Matěj (Ty)</span>
-                    </div>
-                </div>
-            </div>
+    <aside class="sidebar">
+        <a href="index.html" class="sidebar-logo">⚡ XELORIA</a>
+        <button class="btn-new-ticket" onclick="createNewTicket()">+ Nový Web Ticket</button>
+        <div class="ticket-list" id="ticket-list">
+            <!-- Dynamicky načteno -->
+        </div>
+        <div
+            style="padding: 1rem; border-top: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: space-between;">
+            <div id="user-info" style="font-weight: 800; font-size: 0.8rem;">---</div>
+            <a href="/logout"
+                style="color: var(--accent-red); font-size: 0.8rem; font-weight: 950; text-decoration: none;">LOGOUT</a>
         </div>
     </aside>
 
-    <!-- Main Content -->
     <main class="main-content">
-        <!-- Top Bar -->
         <header class="top-bar">
-            <div class="search-container">
-                <span class="search-icon">🔍</span>
-                <input type="text" class="search-input" placeholder="Hledat v ticketech...">
-            </div>
-
-            <div class="user-profile">
-                <div style="text-align: right;">
-                    <span class="profile-name">Matěj</span>
-                    <span class="profile-role">Hráč</span>
-                </div>
-                <div class="profile-avatar">
-                    <img src="https://mc-heads.net/avatar/steve" alt="Avatar">
-                </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <h2 id="active-ticket-title">Centrum Podpory #2</h2>
+                <button id="close-btn" onclick="closeTicket()"
+                    style="display: none; background: var(--accent-red); border: none; color: white; padding: 4px 12px; border-radius: 6px; font-weight: 900; font-size: 0.65rem; cursor: pointer;">UZAVŘÍT</button>
             </div>
         </header>
-
-        <!-- Chat Area -->
-        <div class="chat-area">
-            <!-- System Message -->
-            <div
-                style="text-align: center; font-size: 0.8rem; color: var(--text-dim); margin-bottom: 2rem; background: rgba(0,0,0,0.2); padding: 0.5rem; border-radius: 10px;">
-                Ticket byl vytvořen 06.03.2026 v 23:45
-            </div>
-
-            <!-- Received Message -->
-            <div class="message received">
-                <div class="message-info">
-                    <span class="message-author">Jirkq_ <span class="staff-badge">OWNER</span></span>
-                    <span>23:48</span>
-                </div>
-                <div class="message-content">
-                    Ahoj Matěji, omlouváme se za problémy. Můžeš prosím upřesnit, co přesně se stane, když napíšeš ten
-                    příkaz? Vypíše to nějakou chybu?
-                </div>
-            </div>
-
-            <!-- Sent Message -->
-            <div class="message sent">
-                <div class="message-info">
-                    <span>23:50</span>
-                </div>
-                <div class="message-content">
-                    Ahoj Jirkq, ano, píše to: "Nemáš dostatečná oprávnění pro tento příkaz", i když mám VIP ranking.
-                </div>
-            </div>
-
-            <!-- Received Message -->
-            <div class="message received">
-                <div class="message-info">
-                    <span class="message-author">Batu_cz <span class="staff-badge">ADMIN</span></span>
-                    <span>23:55</span>
-                </div>
-                <div class="message-content">
-                    Právě na to koukám v dstatabázi. Opravil jsem ti prefix a permise, zkus se prosím znovu připojit a
-                    vyzkoušet to.
-                </div>
+        <div class="chat-area" id="chat-area">
+            <div style="text-align: center; color: var(--text-dim); margin-top: 5rem;">
+                <span style="font-size: 3rem; display: block; margin-bottom: 1rem;">🛡️</span>
+                Vyberte ticket vlevo nebo vytvořte nový pro zahájení chatu.
             </div>
         </div>
-
-        <!-- Input Area -->
-        <footer class="input-area">
-            <div class="ticket-actions">
-                <button class="action-btn btn-close">Zavřít Ticket</button>
-            </div>
-            <input type="text" class="chat-input" placeholder="Napište zprávu...">
-            <button class="send-btn">➔</button>
-        </footer>
+        <div class="input-area">
+            <input type="text" id="message-input" class="chat-input" placeholder="Zadejte svou zprávu..."
+                autocomplete="off">
+            <button class="btn-send" onclick="sendMessage()">ODESLAT</button>
+        </div>
     </main>
-    <div id="login-overlay"
-        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-deep); z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
-        <h1 class="logo" style="font-size: 3rem; margin-bottom: 2rem;">⚡ XELORIA<span>LAND</span></h1>
-        <p style="color: var(--text-dim); margin-bottom: 3rem; font-size: 1.2rem;">Pro přístup k ticketům se musíš
-            přihlásit přes Discord.</p>
-        <a href="/auth/discord" class="discord-btn"
-            style="padding: 1.2rem 3rem; font-size: 1.1rem; text-decoration: none;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 15px;">
-                <path
-                    d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.419-2.157 2.419zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.419-2.157 2.419z" />
-            </svg>
-            Přihlásit se přes Discord
-        </a>
-    </div>
 
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
     <script>
-        // NASTAVENÍ ADRESY BOTA (Změň po nahrání bota na hosting)
-        const API_URL = window.location.origin;
-
-        const socket = io(API_URL);
-        let currentTicketId = null;
+        const socket = io();
         let currentUser = null;
+        let currentTicketId = null;
 
-        const chatArea = document.querySelector('.chat-area');
-        const chatInput = document.querySelector('.chat-input');
-        const sendBtn = document.querySelector('.send-btn');
-        const ticketList = document.querySelector('.ticket-list');
-        const profileDisplay = document.querySelector('.user-profile');
-
-        // Check Auth
-        async function checkAuth() {
+        async function init() {
             try {
-                const res = await fetch(`${API_URL}/api/user`);
+                const res = await fetch('/api/user');
                 const data = await res.json();
                 if (data.loggedIn) {
                     currentUser = data;
                     document.getElementById('login-overlay').style.display = 'none';
-                    updateProfileUI();
-                    loadTickets();
-                }
-            } catch (err) {
-                console.error('Auth check failed');
-            }
+                    document.getElementById('user-info').textContent = data.username;
+                    socket.emit('get_my_web_tickets', { userId: data.id, isStaff: data.isStaff });
+                } else { window.location.href = '/auth/discord'; }
+            } catch (e) { console.error('Auth error', e); }
         }
 
-        function updateProfileUI() {
-            profileDisplay.querySelector('.profile-name').textContent = currentUser.username;
-            profileDisplay.querySelector('.profile-avatar img').src = currentUser.avatar;
-        }
-
-        // Load tickets from API
-        async function loadTickets() {
-            if (!currentUser) return;
-            try {
-                const res = await fetch('/api/tickets');
-                const tickets = await res.json();
-
-                ticketList.innerHTML = '';
-                tickets.forEach(ticket => {
-                    const card = document.createElement('div');
-                    card.className = `ticket-card ${currentTicketId === ticket.id ? 'active' : ''}`;
-                    card.innerHTML = `
-                        <div class="ticket-header">
-                            <span class="ticket-id">#${ticket.name.split('-')[1].toUpperCase()}</span>
-                            <span class="ticket-status status-open">Otevřeno</span>
-                        </div>
-                        <div class="ticket-title">${ticket.name}</div>
-                        <div class="ticket-user">
-                            <div class="user-avatar"></div>
-                            <span>${ticket.name.split('-')[2] || 'Hráč'}</span>
-                        </div>
-                    `;
-                    card.onclick = () => selectTicket(ticket.id, ticket.name);
-                    ticketList.appendChild(card);
-                });
-            } catch (err) {
-                console.error('Failed to load tickets', err);
-            }
-        }
-
-        function selectTicket(id, name) {
-            currentTicketId = id;
-            socket.emit('join_ticket', id);
-            chatArea.innerHTML = `<div style="text-align: center; color: var(--text-dim);">Načetli jste ticket: ${name}</div>`;
-            const cards = document.querySelectorAll('.ticket-card');
-            cards.forEach(c => c.classList.remove('active'));
-            document.querySelector(`[onclick*="${id}"]`)?.classList.add('active');
-        }
-
-        function appendMessage(author, content, isStaff, isSent = false) {
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `message ${isSent ? 'sent' : 'received'}`;
-
-            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-            msgDiv.innerHTML = `
-                <div class="message-info">
-                    ${!isSent ? `<span class="message-author">${author} ${isStaff ? '<span class="staff-badge">STAFF</span>' : ''}</span>` : ''}
-                    <span>${time}</span>
-                </div>
-                <div class="message-content">${content}</div>
-            `;
-
-            chatArea.appendChild(msgDiv);
-            chatArea.scrollTop = chatArea.scrollHeight;
-        }
-
-        // Send Message
-        function sendMessage() {
-            const message = chatInput.value.trim();
-            if (message && currentTicketId && currentUser) {
-                socket.emit('send_message', {
-                    ticketId: currentTicketId,
-                    message: message,
-                    user: currentUser.username,
-                    userId: currentUser.id,
-                    avatar: currentUser.avatar
-                });
-                appendMessage(currentUser.username, message, false, true);
-                chatInput.value = '';
-            }
-        }
-
-        // Close Ticket
-        document.querySelector('.btn-close').onclick = () => {
-            if (currentTicketId && confirm('Opravdu chcete tento ticket zavřít?')) {
-                socket.emit('close_ticket', { ticketId: currentTicketId, user: currentUser.username });
-                chatArea.innerHTML = '<div style="text-align: center; color: var(--accent); padding: 2rem;">Ticket byl označen k uzavření.</div>';
-                currentTicketId = null;
-                setTimeout(loadTickets, 1000);
-            }
-        };
-
-        // Create Ticket (Simple test)
-        function createTicket() {
-            const reason = prompt('Zadejte důvod ticketu:');
-            if (reason) {
-                socket.emit('create_ticket', {
-                    userId: currentUser.id,
-                    username: currentUser.username,
-                    category: reason
-                });
-                alert('Požadavek odeslán! Ticket se za chvíli objeví v seznamu.');
-            }
-        }
-
-        // Přidání tlačítka na Nový Ticket do sidebaru (v JS pro jednoduchost)
-        const sidebar = document.querySelector('.sidebar');
-        const newTicketBtn = document.createElement('button');
-        newTicketBtn.className = 'discord-btn';
-        newTicketBtn.style.margin = '1rem';
-        newTicketBtn.style.width = 'calc(100% - 2rem)';
-        newTicketBtn.innerHTML = '+ Nový Ticket';
-        newTicketBtn.onclick = createTicket;
-        sidebar.insertBefore(newTicketBtn, sidebar.querySelector('.ticket-list'));
-
-        sendBtn.onclick = sendMessage;
-        chatInput.onkeypress = (e) => { if (e.key === 'Enter') sendMessage(); };
-
-        // Receive Message
-        socket.on('receive_message', (data) => {
-            appendMessage(data.author, data.content, data.isStaff);
+        socket.on('your_web_tickets', (tickets) => {
+            const list = document.getElementById('ticket-list');
+            list.innerHTML = '';
+            tickets.forEach(t => {
+                const div = document.createElement('div');
+                div.className = `ticket-item ${t.id === currentTicketId ? 'active' : ''}`;
+                div.innerHTML = `
+                    <div class="ticket-id">${t.id} ${t.status === 'closed' ? '🔒' : ''}</div>
+                    <div class="ticket-subject">${t.subject}</div>
+                `;
+                div.onclick = () => selectTicket(t.id);
+                list.appendChild(div);
+            });
         });
 
-        // Initialize
-        checkAuth();
-        setInterval(loadTickets, 10000); 
+        function selectTicket(id) {
+            currentTicketId = id;
+            socket.emit('join_web_ticket', id);
+            document.getElementById('active-ticket-title').textContent = `TICKET ${id}`;
+            const items = document.querySelectorAll('.ticket-item');
+            items.forEach(it => {
+                const text = it.querySelector('.ticket-id').textContent;
+                if (text.includes(id)) it.classList.add('active'); else it.classList.remove('active');
+            });
+        }
+
+        socket.on('web_ticket_history', (ticket) => {
+            const chat = document.getElementById('chat-area');
+            chat.innerHTML = '';
+            ticket.messages.forEach(m => appendMsg(m));
+            const cBtn = document.getElementById('close-btn');
+            if (currentUser.isStaff && ticket.status === 'open') cBtn.style.display = 'block'; else cBtn.style.display = 'none';
+        });
+
+        socket.on('web_ticket_created', (newTicket) => { selectTicket(newTicket.id); });
+
+        socket.on('new_web_message', (data) => {
+            if (data.ticketId === currentTicketId) appendMsg(data.message);
+        });
+
+        function appendMsg(m) {
+            const chat = document.getElementById('chat-area');
+            const div = document.createElement('div');
+            const isMe = m.author === currentUser.username;
+            div.className = `msg ${isMe ? 'sent' : 'received'}`;
+            div.innerHTML = `<div style="font-size: 0.6rem; opacity: 0.7; margin-bottom: 5px; font-weight: 900;">${m.author.toUpperCase()}</div>${m.content}`;
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function sendMessage() {
+            const inp = document.getElementById('message-input');
+            const val = inp.value.trim();
+            if (!currentTicketId) { alert('Prvně vyber ticket vlevo!'); return; }
+            if (val) {
+                socket.emit('send_web_message', { ticketId: currentTicketId, userId: currentUser.id, username: currentUser.username, content: val });
+                inp.value = '';
+            }
+        }
+
+        function closeTicket() { if (confirm('Uzavřít tento ticket?')) socket.emit('close_web_ticket', currentTicketId); }
+
+        // Modal Logic
+        function createNewTicket() { document.getElementById('ticket-modal').style.display = 'flex'; resetModal(); }
+        function closeModal() { document.getElementById('ticket-modal').style.display = 'none'; }
+
+        let selectedCat = '';
+        function selectCategory(cat, icon) {
+            selectedCat = cat;
+            document.getElementById('step-1').style.display = 'none';
+            document.getElementById('step-2').style.display = 'block';
+            document.getElementById('selected-cat-title').textContent = `${icon} ${cat.toUpperCase()} TICKET`;
+        }
+        function resetModal() {
+            document.getElementById('step-1').style.display = 'block';
+            document.getElementById('step-2').style.display = 'none';
+            document.getElementById('ticket-subject').value = '';
+        }
+        function submitTicket() {
+            const subj = document.getElementById('ticket-subject').value.trim();
+            if (subj && selectedCat) {
+                socket.emit('create_web_ticket', { userId: currentUser.id, username: currentUser.username, category: selectedCat, subject: subj });
+                closeModal();
+            } else alert('Zadej předmět!');
+        }
+
+        document.getElementById('message-input').onkeydown = (e) => { if (e.key === 'Enter') sendMessage(); };
+        init();
     </script>
 </body>
-
 
 </html>
