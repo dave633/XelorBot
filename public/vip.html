@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎊 Shop | XeloriaLand</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #0f071a;
+            --bg-card: #1a0b2e;
+            --accent-purple: #7c3aed;
+            --accent-red: #ef4444;
+            --text-main: #f5f5f5;
+            --text-dim: #a78bfa;
+            --rank-silver: #94a3b8;
+            --rank-gold: #f59e0b;
+            --rank-diamond: #0ea5e9;
+            --rank-bedrock: #64748b;
+            --rank-ultimate: #d946ef;
+            --rank-vip: #fbbf24;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bg-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% -20%, #4c1d95 0%, transparent 60%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* NAV */
+        header {
+            padding: 1.5rem 2rem;
+            background: rgba(15, 7, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            color: var(--text-main);
+            text-decoration: none;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: glitch 3s infinite alternate;
+        }
+
+        @keyframes glitch {
+            0% {
+                text-shadow: 2px 0 0 #ef4444, -2px 0 0 #7c3aed;
+            }
+
+            20% {
+                text-shadow: -2px 0 0 #ef4444, 2px 0 0 #7c3aed;
+            }
+
+            40% {
+                text-shadow: 3px 0 0 #ef4444, -1px 0 0 #7c3aed;
+            }
+
+            60% {
+                text-shadow: -1px 0 0 #ef4444, 3px 0 0 #7c3aed;
+            }
+
+            80% {
+                text-shadow: 2px 0 0 #ef4444, -2px 0 0 #7c3aed;
+            }
+
+            100% {
+                text-shadow: 0 0 10px var(--accent-red), 0 0 20px var(--accent-red);
+            }
+        }
+
+        .logo span {
+            color: var(--accent-red);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-red);
+        }
+
+        .discord-btn {
+            background: linear-gradient(135deg, #7c3aed 0%, #ef4444 100%);
+            color: white !important;
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            box-shadow: 0 5px 20px rgba(239, 68, 68, 0.4);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .discord-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.6);
+            filter: brightness(1.2);
+        }
+
+        /* PAGE TITLE */
+        .shop-header {
+            text-align: center;
+            padding: 5rem 2rem 3rem;
+        }
+
+        .shop-header h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .shop-header h1 span {
+            color: var(--accent-red);
+        }
+
+        .shop-header p {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* RANK GRID */
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem 6rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .rank-card {
+            background: #161228;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .rank-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Colored top banner */
+        .rank-banner {
+            height: 130px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            gap: 8px;
+        }
+
+        .rank-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .rank-banner-icon {
+            font-size: 2.8rem;
+            z-index: 1;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+        }
+
+        .rank-banner-name {
+            z-index: 1;
+            font-size: 1.4rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: white;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Card body */
+        .rank-body {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            gap: 1.2rem;
+        }
+
+        .rank-perks {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .rank-perks li {
+            font-size: 0.9rem;
+            color: #c4b5fd;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .rank-perks li::before {
+            content: '✔';
+            color: #22c55e;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .rank-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+            margin-top: auto;
+        }
+
+        .rank-price-area {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .rank-price {
+            font-size: 1.7rem;
+            font-weight: 900;
+            color: white;
+        }
+
+        .rank-duration-label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            font-weight: 700;
+        }
+
+        .duration-pills {
+            display: flex;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 3px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .dpill {
+            background: transparent;
+            border: none;
+            padding: 5px 14px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #888;
+        }
+
+        .dpill.active {
+            background: white;
+            color: #111;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .buy-btn {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-red));
+            color: white;
+            border: none;
+            padding: 0.65rem 1.4rem;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .buy-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(239, 68, 68, 0.45);
+        }
+
+        /* Rank color variants */
+        .silver .rank-banner {
+            background: linear-gradient(135deg, #64748b, #94a3b8);
+        }
+
+        .gold .rank-banner {
+            background: linear-gradient(135deg, #b45309, #f59e0b);
+        }
+
+        .diamond .rank-banner {
+            background: linear-gradient(135deg, #0369a1, #38bdf8);
+        }
+
+        .bedrock .rank-banner {
+            background: linear-gradient(135deg, #1e293b, #475569);
+        }
+
+        .ultimate .rank-banner {
+            background: linear-gradient(135deg, #7e22ce, #d946ef);
+        }
+
+        .vip .rank-banner {
+            background: linear-gradient(135deg, #92400e, #fbbf24);
+        }
+
+        .silver:hover {
+            border-color: #94a3b8;
+        }
+
+        .gold:hover {
+            border-color: #f59e0b;
+        }
+
+        .diamond:hover {
+            border-color: #38bdf8;
+        }
+
+        .bedrock:hover {
+            border-color: #64748b;
+        }
+
+        .ultimate:hover {
+            border-color: #d946ef;
+        }
+
+        .vip:hover {
+            border-color: #fbbf24;
+        }
+
+        /* ===== MODALS ===== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-box {
+            background: #1a0b2e;
+            border: 1px solid rgba(124, 58, 237, 0.4);
+            border-radius: 24px;
+            padding: 2.5rem;
+            width: 90%;
+            max-width: 460px;
+            position: relative;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+            color: white;
+            text-align: center;
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s;
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 18px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: #666;
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: color 0.2s;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: var(--accent-red);
+        }
+
+        .modal-title {
+            font-size: 1.6rem;
+            font-weight: 900;
+            margin-bottom: 0.4rem;
+        }
+
+        .modal-sub {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        /* Step 1: nick form */
+        .nick-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .nick-form label {
+            text-align: left;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-dim);
+        }
+
+        .nick-form input {
+            width: 100%;
+            padding: 0.85rem 1.1rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1.5px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .nick-form input:focus {
+            border-color: var(--accent-purple);
+        }
+
+        .nick-form input::placeholder {
+            color: #555;
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #7c3aed, #ef4444);
+            color: white;
+            border: none;
+            padding: 0.9rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+
+        .next-btn:hover {
+            filter: brightness(1.15);
+            transform: translateY(-2px);
+        }
+
+        /* Step 2: payment methods */
+        .payment-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .pay-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 1.8rem 1rem;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all 0.25s;
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pay-card:hover {
+            background: rgba(124, 58, 237, 0.12);
+            border-color: var(--accent-purple);
+            transform: translateY(-4px);
+        }
+
+        .pay-card svg,
+        .pay-card img {
+            height: 38px;
+            width: auto;
+        }
+
+        /* Step 3: Payment Details */
+        .pay-details {
+            text-align: left;
+            margin-top: 1rem;
+        }
+
+        .pay-method-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .pay-method-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .pay-method-icon.mbank {
+            background: rgba(226, 0, 26, 0.2);
+            border: 1px solid rgba(226, 0, 26, 0.4);
+        }
+
+        .pay-method-icon.paypal {
+            background: rgba(0, 119, 181, 0.2);
+            border: 1px solid rgba(0, 119, 181, 0.4);
+        }
+
+        .pay-method-name {
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        .pay-method-type {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            font-weight: 600;
+        }
+
+        .pay-detail-row {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1rem 1.2rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pay-detail-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .pay-detail-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--accent-red);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pay-detail-value {
+            font-size: 1rem;
+            font-weight: 800;
+            font-family: 'Courier New', monospace;
+            color: white;
+            word-break: break-all;
+        }
+
+        .copy-detail-btn {
+            background: rgba(124, 58, 237, 0.25);
+            border: 1px solid rgba(124, 58, 237, 0.4);
+            color: white;
+            padding: 0.4rem 0.9rem;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        .copy-detail-btn:hover {
+            background: rgba(124, 58, 237, 0.5);
+            transform: scale(1.05);
+        }
+
+        .copy-detail-btn.copied {
+            background: rgba(16, 185, 129, 0.3);
+            border-color: rgba(16, 185, 129, 0.5);
+            color: #6ee7b7;
+        }
+
+        .pay-instructions {
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            border-radius: 12px;
+            padding: 1rem 1.2rem;
+            margin-top: 1.2rem;
+        }
+
+        .pay-instructions-title {
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: #fbbf24;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pay-instructions p {
+            font-size: 0.85rem;
+            color: #d4d4d8;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .pay-instructions strong {
+            color: #fbbf24;
+        }
+
+        .pay-summary {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .pay-summary-item {
+            background: rgba(124, 58, 237, 0.1);
+            border-radius: 8px;
+            padding: 0.6rem 0.8rem;
+            text-align: center;
+        }
+
+        .pay-summary-label {
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .pay-summary-value {
+            font-size: 0.95rem;
+            font-weight: 900;
+            color: white;
+        }
+
+        .back-step-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-dim);
+            padding: 0.7rem 1.5rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 0.8rem;
+            width: 100%;
+        }
+
+        .back-step-btn:hover {
+            border-color: var(--accent-purple);
+            color: white;
+        }
+
+        /* Success overlay */
+        #successModal .modal-box {
+            border-color: rgba(34, 197, 94, 0.5);
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .success-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #4ade80;
+        }
+
+        .success-sub {
+            color: #86efac;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        footer {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: #0a0512;
+            border-top: 1px solid rgba(124, 58, 237, 0.1);
+            color: var(--text-dim);
+            margin-top: auto;
+        }
+
+        /* ===== VIP BENEFITS TABLE ===== */
+        .benefits-section {
+            padding: 4rem 2rem 6rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.6rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title span {
+            color: var(--accent-red);
+        }
+
+        .section-desc {
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 3rem;
+        }
+
+        .benefits-table-wrap {
+            overflow-x: auto;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .benefits-table {
+            width: 100%;
+            min-width: 860px;
+            border-collapse: collapse;
+            background: #161228;
+        }
+
+        .benefits-table thead th {
+            padding: 1.2rem 0.8rem;
+            font-size: 0.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-align: center;
+            background: #0e0920;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+            white-space: nowrap;
+        }
+
+        .benefits-table thead th.feature-col {
+            text-align: left;
+            padding-left: 1.5rem;
+            color: var(--text-dim);
+            font-size: 0.75rem;
+            min-width: 200px;
+        }
+
+        .benefits-table thead th.silver-col {
+            color: #94a3b8;
+        }
+
+        .benefits-table thead th.gold-col {
+            color: #f59e0b;
+        }
+
+        .benefits-table thead th.diamond-col {
+            color: #38bdf8;
+        }
+
+        .benefits-table thead th.bedrock-col {
+            color: #7c8ea4;
+        }
+
+        .benefits-table thead th.ultimate-col {
+            color: #d946ef;
+        }
+
+        .benefits-table thead th.vip-col {
+            color: #fbbf24;
+        }
+
+        .benefits-table tbody td {
+            padding: 0.85rem 0.8rem;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            color: white;
+        }
+
+        .benefits-table tbody td:first-child {
+            text-align: left;
+            padding-left: 1.5rem;
+            color: #c4b5fd;
+            font-weight: 600;
+        }
+
+        .benefits-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .benefits-table tbody tr.kits-row td {
+            color: #a78bfa;
+            font-weight: 800;
+        }
+
+        .benefits-table tbody tr.kits-row td:first-child {
+            color: #c4b5fd;
+        }
+
+        .benefits-table tbody tr.price-row {
+            background: #0e0920;
+            border-top: 2px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .benefits-table tbody tr.price-row td {
+            font-size: 1.05rem;
+            font-weight: 900;
+            padding: 1.2rem 0.8rem;
+            color: #4ade80;
+        }
+
+        .benefits-table tbody tr.price-row td:first-child {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .shop-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .shop-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-glow"></div>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">⚡ XELORIA<span>LAND</span></a>
+            <div class="nav-links">
+                <a href="index.html">Domů</a>
+                <a href="pravidla.html">Pravidla</a>
+                <a href="youtube.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 20" width="20" height="14"
+                        style="margin-right:5px;">
+                        <path
+                            d="M14.4848 20C14.4848 20 23.5695 20 25.8229 19.4C27.0917 19.06 28.0459 18.08 28.3808 16.87C29 14.65 29 9.98 29 9.98C29 9.98 29 5.34 28.3808 3.14C28.0459 1.9 27.0917 0.94 25.8229 0.61C23.5695 0 14.4848 0 14.4848 0C14.4848 0 5.42037 0 3.17711 0.61C1.9286 0.94 0.954148 1.9 0.59888 3.14C0 5.34 0 9.98 0 9.98C0 9.98 0 14.65 0.59888 16.87C0.954148 18.08 1.9286 19.06 3.17711 19.4C5.42037 20 14.4848 20 14.4848 20Z"
+                            fill="#ff0000"></path>
+                        <path d="M19 10L11.5 5.75V14.25L19 10Z" fill="white"></path>
+                    </svg>
+                    Youtube
+                </a>
+                <a href="vip.html" style="color: var(--accent-red);">🎊 Shop</a>
+                <a href="nabory.html">📋 Nábory</a>
+                <a href="servery.html">🖥️ Servery</a>
+                <a href="at.html">👑 Admin Team</a>
+                <a href="https://discord.gg/BYRYwNwn" class="discord-btn" target="_blank">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.419-2.157 2.419zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.419-2.157 2.419z" />
+                    </svg>
+                    Discord
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="shop-header">
+            <h1>🎊 <span>Shop</span></h1>
+            <p>Vyber si rank a podpoř server — získáš unikátní výhody!</p>
+        </div>
+
+        <div class="shop-grid">
+
+            <!-- SILVER -->
+            <div class="rank-card silver" data-rank="Silver" data-p1="9" data-p2="13">
+                <div class="rank-banner">
+                    <span class="rank-banner-icon">⚔️</span>
+                    <span class="rank-banner-name">Silver</span>
+                </div>
+                <div class="rank-body">
+                    <div class="duration-pills">
+                        <button class="dpill active" onclick="setDuration(this,1)">1 měsíc</button>
+                        <button class="dpill" onclick="setDuration(this,2)">2 měsíce</button>
+                    </div>
+                    <ul class="rank-perks">
+                        <li>Prefix [Silver] v chatu</li>
+                        <li>3× /sethome</li>
+                        <li>Barevný nick (/nick)</li>
+                        <li>Přístup na Silver warp</li>
+                        <li>5× denní kity</li>
+                    </ul>
+                    <div class="rank-footer">
+                        <div class="rank-price-area">
+                            <span class="rank-price">9 Kč</span>
+                            <span class="rank-duration-label">za měsíc</span>
+                        </div>
+                        <button class="buy-btn" onclick="openStep1(this.closest('.rank-card'))">Koupit →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GOLD -->
+            <div class="rank-card gold" data-rank="Gold" data-p1="17" data-p2="20">
+                <div class="rank-banner">
+                    <span class="rank-banner-icon">👑</span>
+                    <span class="rank-banner-name">Gold</span>
+                </div>
+                <div class="rank-body">
+                    <div class="duration-pills">
+                        <button class="dpill active" onclick="setDuration(this,1)">1 měsíc</button>
+                        <button class="dpill" onclick="setDuration(this,2)">2 měsíce</button>
+                    </div>
+                    <ul class="rank-perks">
+                        <li>Prefix [Gold] v chatu</li>
+                        <li>5× /sethome</li>
+                        <li>Barevný nick + bold</li>
+                        <li>Přístup na Gold warp</li>
+                        <li>Fly na lobby</li>
+                        <li>10× denní kity</li>
+                    </ul>
+                    <div class="rank-footer">
+                        <div class="rank-price-area">
+                            <span class="rank-price">17 Kč</span>
+                            <span class="rank-duration-label">za měsíc</span>
+                        </div>
+                        <button class="buy-btn" onclick="openStep1(this.closest('.rank-card'))">Koupit →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DIAMOND -->
+            <div class="rank-card diamond" data-rank="Diamond" data-p1="23" data-p2="26">
+                <div class="rank-banner">
+                    <span class="rank-banner-icon">💎</span>
+                    <span class="rank-banner-name">Diamond</span>
+                </div>
+                <div class="rank-body">
+                    <div class="duration-pills">
+                        <button class="dpill active" onclick="setDuration(this,1)">1 měsíc</button>
+                        <button class="dpill" onclick="setDuration(this,2)">2 měsíce</button>
+                    </div>
+                    <ul class="rank-perks">
+                        <li>Prefix [Diamond] v chatu</li>
+                        <li>8× /sethome</li>
+                        <li>Barevné zprávy v chatu</li>
+                        <li>Přístup na Diamond warp</li>
+                        <li>Fly v survival</li>
+                        <li>Vlastní join zpráva</li>
+                        <li>15× denní kity</li>
+                    </ul>
+                    <div class="rank-footer">
+                        <div class="rank-price-area">
+                            <span class="rank-price">23 Kč</span>
+                            <span class="rank-duration-label">za měsíc</span>
+                        </div>
+                        <button class="buy-btn" onclick="openStep1(this.closest('.rank-card'))">Koupit →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BEDROCK -->
+            <div class="rank-card bedrock" data-rank="Bedrock" data-p1="25" data-p2="29">
+                <div class="rank-banner">
+                    <span class="rank-banner-icon">🪨</span>
+                    <span class="rank-banner-name">Bedrock</span>
+                </div>
+                <div class="rank-body">
+                    <div class="duration-pills">
+                        <button class="dpill active" onclick="setDuration(this,1)">1 měsíc</button>
+                        <button class="dpill" onclick="setDuration(this,2)">2 měsíce</button>
+                    </div>
+                    <ul class="rank-perks">
+                        <li>Prefix [Bedrock] v chatu</li>
+                        <li>10× /sethome</li>
+                        <li>Přístup na Bedrock warp</li>
+                        <li>Fly + speed</li>
+                        <li>Vlastní /nick barvy</li>
+                        <li>VIP sekce na Discordu</li>
+                        <li>20× denní kity</li>
+                    </ul>
+                    <div class="rank-footer">
+                        <div class="rank-price-area">
+                            <span class="rank-price">25 Kč</span>
+                            <span class="rank-duration-label">za měsíc</span>
+                        </div>
+                        <button class="buy-btn" onclick="openStep1(this.closest('.rank-card'))">Koupit →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ULTIMATE -->
+            <div class="rank-card ultimate" data-rank="Ultimate" data-p1="28" data-p2="30">
+                <div class="rank-banner">
+                    <span class="rank-banner-icon">🌟</span>
+                    <span class="rank-banner-name">Ultimate</span>
+                </div>
+                <div class="rank-body">
+                    <div class="duration-pills">
+                        <button class="dpill active" onclick="setDuration(this,1)">1 měsíc</button>
+                        <button class="dpill" onclick="setDuration(this,2)">2 měsíce</button>
+                    </div>
+                    <ul class="rank-perks">
+                        <li>Prefix [Ultimate] v chatu</li>
+                        <li>15× /sethome</li>
+                        <li>Veškeré výhody Diamond+</li>
+                        <li>Přístup na Ultimate warp</li>
+                        <li>God mode na lobby</li>
+                        <li>Vlastní particle efekty</li>
+                        <li>Prioritní podpora admins</li>
+                        <li>30× denní kity</li>
+                    </ul>
+                    <div class="rank-footer">
+                        <div class="rank-price-area">
+                            <span class="rank-price">28 Kč</span>
+                            <span class="rank-duration-label">za měsíc</span>
+                        </div>
+                        <button class="buy-btn" onclick="openStep1(this.closest('.rank-card'))">Koupit →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- V.I.P -->
+            <div class="rank-card vip" data-rank="V.I.P" data-p1="35" data-p2="42">
+                <div class="rank-banner">
+                    <span class="rank-banner-icon">🏅</span>
+                    <span class="rank-banner-name">V.I.P</span>
+                </div>
+                <div class="rank-body">
+                    <div class="duration-pills">
+                        <button class="dpill active" onclick="setDuration(this,1)">1 měsíc</button>
+                        <button class="dpill" onclick="setDuration(this,2)">2 měsíce</button>
+                    </div>
+                    <ul class="rank-perks">
+                        <li>Prefix [V.I.P] v chatu</li>
+                        <li>Neomezený /sethome</li>
+                        <li>Veškeré výhody Ultimate+</li>
+                        <li>Vlastní Discord role</li>
+                        <li>Vliv na vývoj serveru</li>
+                        <li>Exkluzivní V.I.P eventy</li>
+                        <li>Vlastní skin pro bota</li>
+                        <li>50× denní kity</li>
+                    </ul>
+                    <div class="rank-footer">
+                        <div class="rank-price-area">
+                            <span class="rank-price">35 Kč</span>
+                            <span class="rank-duration-label">za měsíc</span>
+                        </div>
+                        <button class="buy-btn" onclick="openStep1(this.closest('.rank-card'))">Koupit →</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ===== TABULKA VÝHOD ===== -->
+        <div class="benefits-section">
+            <h2 class="section-title">📊 <span>Porovnání výhod</span></h2>
+            <p class="section-desc">Přehled všech výhod podle ranku — vyber si ten pravý pro tebe!</p>
+            <div class="benefits-table-wrap">
+                <table class="benefits-table">
+                    <thead>
+                        <tr>
+                            <th class="feature-col">Výhoda</th>
+                            <th class="rank-col silver-col">⚔️ Silver</th>
+                            <th class="rank-col gold-col">👑 Gold</th>
+                            <th class="rank-col diamond-col">💎 Diamond</th>
+                            <th class="rank-col bedrock-col">🪨 Bedrock</th>
+                            <th class="rank-col ultimate-col">🌟 Ultimate</th>
+                            <th class="rank-col vip-col">🏅 V.I.P</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Prefix v chatu</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>/sethome</td>
+                            <td>3×</td>
+                            <td>5×</td>
+                            <td>8×</td>
+                            <td>10×</td>
+                            <td>15×</td>
+                            <td>∞</td>
+                        </tr>
+                        <tr>
+                            <td>Barevný nick (/nick)</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>Bold nick</td>
+                            <td>❌</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>Exclusive warp</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>Fly na lobby</td>
+                            <td>❌</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>Fly v survival</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>Speed</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>Barevné zprávy v chatu</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>Vlastní join zpráva</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>Vlastní /nick barvy</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>VIP sekce na Discordu</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>God mode na lobby</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>Particle efekty</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>Prioritní podpora</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>Vlastní Discord role</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>Vliv na vývoj serveru</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>Exkluzivní V.I.P eventy</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>Vlastní skin pro bota</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr class="kits-row">
+                            <td>Denní kity</td>
+                            <td>5×</td>
+                            <td>10×</td>
+                            <td>15×</td>
+                            <td>20×</td>
+                            <td>30×</td>
+                            <td>50×</td>
+                        </tr>
+                        <tr class="price-row">
+                            <td>💰 Cena / měsíc</td>
+                            <td>9 Kč</td>
+                            <td>17 Kč</td>
+                            <td>23 Kč</td>
+                            <td>25 Kč</td>
+                            <td>28 Kč</td>
+                            <td>35 Kč</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ===== MODAL: STEP 1 – Minecraft Nick ===== -->
+    <div class="modal-overlay" id="step1Modal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeAll()">×</button>
+            <div class="modal-title" id="s1Title">Koupit rank</div>
+            <div class="modal-sub" id="s1Sub">Zadej svůj Minecraft nick</div>
+            <div class="nick-form">
+                <div>
+                    <label>Minecraft Nick</label>
+                    <input type="text" id="nickInput" placeholder="TvůjNick" maxlength="16" autocomplete="off">
+                </div>
+                <div>
+                    <label>Discord Nick <span style="color:#ef4444;">*</span></label>
+                    <input type="text" id="discordInput" placeholder="TvůjDiscord#1234" autocomplete="off">
+                </div>
+                <button class="next-btn" onclick="goToStep2()">Pokračovat →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL: STEP 2 – Výběr platby ===== -->
+    <div class="modal-overlay" id="step2Modal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeAll()">×</button>
+            <div class="modal-title">Vyber platební metodu</div>
+            <div class="modal-sub" id="s2Info">Silver · 1 měsíc · 9 Kč</div>
+
+            <div class="payment-grid">
+                <!-- mBank -->
+                <div class="pay-card" onclick="goToStep3('mBank')">
+                    <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg" style="height:38px;width:auto;">
+                        <rect width="120" height="40" rx="6" fill="#e2001a" />
+                        <text x="60" y="27" font-family="Arial, sans-serif" font-size="22" font-weight="900"
+                            fill="white" text-anchor="middle" letter-spacing="-1">mBank</text>
+                    </svg>
+                    <span>Bankovní převod</span>
+                </div>
+
+                <!-- PayPal -->
+                <div class="pay-card" onclick="goToStep3('PayPal')">
+                    <svg viewBox="0 0 124 33" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="#253B80"
+                            d="M46.2 6.8h-8.4c-.6 0-1.1.4-1.2 1l-3.4 21.5c-.1.4.2.8.6.8h4.3c.6 0 1.1-.4 1.2-1l.9-5.8c.1-.6.6-1 1.2-1h2.7c5.5 0 8.7-2.7 9.5-7.9.4-2.3 0-4.1-1-5.4-1.2-1.4-3.2-2.2-5.4-2.2zm1 7.8c-.5 3-2.7 3-4.9 3h-1.2l.9-5.5c0-.3.3-.5.6-.5h.5c1.5 0 2.9 0 3.6.8.5.6.6 1.4.5 2.2z" />
+                        <path fill="#179BD7"
+                            d="M73 14.5h-4c-.3 0-.6.2-.6.5l-.2 1-.3-.4c-.9-1.3-2.9-1.7-4.9-1.7-4.6 0-8.5 3.5-9.3 8.4-.4 2.4.2 4.8 1.5 6.4 1.3 1.5 3.1 2.1 5.2 2.1 3.7 0 5.8-2.4 5.8-2.4l-.2 1c-.1.4.2.8.6.8h3.6c.6 0 1.1-.4 1.2-1l2.2-13.9c.1-.4-.2-.8-.6-.8zm-5.6 8.2c-.4 2.3-2.2 3.9-4.6 3.9-1.2 0-2.1-.4-2.7-1.1-.6-.7-.8-1.7-.6-2.8.4-2.3 2.2-3.9 4.5-3.9 1.1 0 2.1.4 2.7 1.1.6.8.8 1.8.7 2.8z" />
+                    </svg>
+                    <span>PayPal</span>
+                </div>
+            </div>
+
+            <button class="back-step-btn" onclick="backToStep1()">← Zpět</button>
+        </div>
+    </div>
+
+    <!-- ===== MODAL: STEP 3 – Platební údaje ===== -->
+    <div class="modal-overlay" id="step3Modal">
+        <div class="modal-box" style="max-width:520px;">
+            <button class="modal-close" onclick="closeAll()">×</button>
+            <div class="modal-title">Platební údaje</div>
+            <div class="modal-sub" id="s3Info">Silver · 1 měsíc · 9 Kč</div>
+
+            <div class="pay-details" id="payDetailsContent">
+                <!-- Dynamicky naplněno JS -->
+            </div>
+
+            <button class="next-btn" style="margin-top:1.2rem;" onclick="confirmPurchase()">✓ Zaplatil jsem →</button>
+            <button class="back-step-btn" onclick="backToStep2()">← Zpět na výběr platby</button>
+        </div>
+    </div>
+
+    <!-- ===== MODAL: SUCCESS ===== -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeAll()">×</button>
+            <div class="success-icon">✅</div>
+            <div class="success-title">Objednávka přijata!</div>
+            <div class="success-sub" id="successText"></div>
+            <p style="margin-top:1.5rem; color:#86efac; font-size:0.85rem; font-weight:600;">
+                Tvůj rank bude aktivován ihned po ověření platby.<br>
+                Admin tě kontaktuje na Discordu.
+            </p>
+            <button class="next-btn" style="margin-top:1.5rem;" onclick="closeAll()">Zavřít</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 XeloriaLand — Všechna práva vyhrazena</p>
+    </footer>
+
+    <script>
+        // ── CONFIG ──────────────────────────────────────────────
+        const DISCORD_WEBHOOK = 'TVUJ_WEBHOOK_URL_ZDE';
+        const MBANK_ACCOUNT = '670100-2215169953/6210';
+        const PAYPAL_EMAIL = 'smejkalsmejki@gmail.com';
+        // ────────────────────────────────────────────────────────
+
+        let currentCard = null;
+        let currentMethod = '';
+
+        function setDuration(btn, months) {
+            const card = btn.closest('.rank-card');
+            const pills = card.querySelectorAll('.dpill');
+            pills.forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            const price = card.getAttribute('data-p' + months);
+            card.querySelector('.rank-price').textContent = price + ' Kč';
+            card.querySelector('.rank-duration-label').textContent = months === 1 ? 'za měsíc' : 'za 2 měsíce';
+        }
+
+        function getOrderInfo() {
+            const nick = document.getElementById('nickInput').value.trim();
+            const discord = document.getElementById('discordInput').value.trim();
+            const rank = currentCard.getAttribute('data-rank');
+            const price = currentCard.querySelector('.rank-price').textContent;
+            const duration = currentCard.querySelector('.dpill.active').textContent;
+            return { nick, discord, rank, price, duration };
+        }
+
+        function openStep1(card) {
+            currentCard = card;
+            const rank = card.getAttribute('data-rank');
+            const price = card.querySelector('.rank-price').textContent;
+            const durationBtn = card.querySelector('.dpill.active');
+            const duration = durationBtn ? durationBtn.textContent : '1 měsíc';
+
+            document.getElementById('s1Title').textContent = 'Koupit ' + rank;
+            document.getElementById('s1Sub').textContent = rank + ' · ' + duration + ' · ' + price;
+            document.getElementById('nickInput').value = '';
+            document.getElementById('discordInput').value = '';
+            showModal('step1Modal');
+        }
+
+        function goToStep2() {
+            const nick = document.getElementById('nickInput').value.trim();
+            const discord = document.getElementById('discordInput').value.trim();
+            if (!nick) {
+                document.getElementById('nickInput').focus();
+                document.getElementById('nickInput').style.borderColor = '#ef4444';
+                setTimeout(() => document.getElementById('nickInput').style.borderColor = '', 1500);
+                return;
+            }
+            if (!discord) {
+                document.getElementById('discordInput').focus();
+                document.getElementById('discordInput').style.borderColor = '#ef4444';
+                setTimeout(() => document.getElementById('discordInput').style.borderColor = '', 1500);
+                return;
+            }
+            const info = getOrderInfo();
+            document.getElementById('s2Info').textContent = info.rank + ' · ' + info.duration + ' · ' + info.price;
+            hideModal('step1Modal');
+            showModal('step2Modal');
+        }
+
+        function backToStep1() {
+            hideModal('step2Modal');
+            showModal('step1Modal');
+        }
+
+        function backToStep2() {
+            hideModal('step3Modal');
+            showModal('step2Modal');
+        }
+
+        function goToStep3(method) {
+            currentMethod = method;
+            const info = getOrderInfo();
+            document.getElementById('s3Info').textContent = info.rank + ' · ' + info.duration + ' · ' + info.price + ' · ' + method;
+
+            const container = document.getElementById('payDetailsContent');
+            const msgNote = info.nick + ' - ' + info.rank + ' - ' + info.duration;
+
+            if (method === 'mBank') {
+                container.innerHTML = `
+                    <div class="pay-method-header">
+                        <div class="pay-method-icon mbank">🏦</div>
+                        <div>
+                            <div class="pay-method-name">Bankovní převod</div>
+                            <div class="pay-method-type">mBank</div>
+                        </div>
+                    </div>
+
+                    <div class="pay-summary">
+                        <div class="pay-summary-item">
+                            <div class="pay-summary-label">Nick</div>
+                            <div class="pay-summary-value">${info.nick}</div>
+                        </div>
+                        <div class="pay-summary-item">
+                            <div class="pay-summary-label">Rank</div>
+                            <div class="pay-summary-value">${info.rank}</div>
+                        </div>
+                        <div class="pay-summary-item">
+                            <div class="pay-summary-label">Trvání</div>
+                            <div class="pay-summary-value">${info.duration}</div>
+                        </div>
+                        <div class="pay-summary-item">
+                            <div class="pay-summary-label">Cena</div>
+                            <div class="pay-summary-value">${info.price}</div>
+                        </div>
+                    </div>
+
+                    <div class="pay-detail-row">
+                        <div class="pay-detail-left">
+                            <div class="pay-detail-label">Číslo účtu</div>
+                            <div class="pay-detail-value">${MBANK_ACCOUNT}</div>
+                        </div>
+                        <button class="copy-detail-btn" onclick="copyDetail(this, '${MBANK_ACCOUNT}')">📋 Kopírovat</button>
+                    </div>
+
+                    <div class="pay-detail-row">
+                        <div class="pay-detail-left">
+                            <div class="pay-detail-label">Částka</div>
+                            <div class="pay-detail-value">${info.price}</div>
+                        </div>
+                        <button class="copy-detail-btn" onclick="copyDetail(this, '${info.price.replace(' Kč', '')}')">📋 Kopírovat</button>
+                    </div>
+
+                    <div class="pay-detail-row">
+                        <div class="pay-detail-left">
+                            <div class="pay-detail-label">Zpráva pro příjemce</div>
+                            <div class="pay-detail-value">${msgNote}</div>
+                        </div>
+                        <button class="copy-detail-btn" onclick="copyDetail(this, '${msgNote}')">📋 Kopírovat</button>
+                    </div>
+
+                    <div class="pay-instructions">
+                        <div class="pay-instructions-title">⚠️ Důležité pokyny</div>
+                        <p>
+                            1. Pošli platbu na číslo účtu výše.<br>
+                            2. Do <strong>zprávy pro příjemce</strong> napiš svůj nick a rank.<br>
+                            3. Po odeslání klikni na <strong>"Zaplatil jsem"</strong>.<br>
+                            4. Rank bude aktivován po ověření platby (většinou do 24h).
+                        </p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div class="pay-method-header">
+                        <div class="pay-method-icon paypal">💳</div>
+                        <div>
+                            <div class="pay-method-name">PayPal</div>
+                            <div class="pay-method-type">Online platba</div>
+                        </div>
+                    </div>
+
+                    <div class="pay-summary">
+                        <div class="pay-summary-item">
+                            <div class="pay-summary-label">Nick</div>
+                            <div class="pay-summary-value">${info.nick}</div>
+                        </div>
+                        <div class="pay-summary-item">
+                            <div class="pay-summary-label">Rank</div>
+                            <div class="pay-summary-value">${info.rank}</div>
+                        </div>
+                        <div class="pay-summary-item">
+                            <div class="pay-summary-label">Trvání</div>
+                            <div class="pay-summary-value">${info.duration}</div>
+                        </div>
+                        <div class="pay-summary-item">
+                            <div class="pay-summary-label">Cena</div>
+                            <div class="pay-summary-value">${info.price}</div>
+                        </div>
+                    </div>
+
+                    <div class="pay-detail-row">
+                        <div class="pay-detail-left">
+                            <div class="pay-detail-label">PayPal e-mail</div>
+                            <div class="pay-detail-value">${PAYPAL_EMAIL}</div>
+                        </div>
+                        <button class="copy-detail-btn" onclick="copyDetail(this, '${PAYPAL_EMAIL}')">📋 Kopírovat</button>
+                    </div>
+
+                    <div class="pay-detail-row">
+                        <div class="pay-detail-left">
+                            <div class="pay-detail-label">Částka</div>
+                            <div class="pay-detail-value">${info.price}</div>
+                        </div>
+                        <button class="copy-detail-btn" onclick="copyDetail(this, '${info.price.replace(' Kč', '')}')">📋 Kopírovat</button>
+                    </div>
+
+                    <div class="pay-detail-row">
+                        <div class="pay-detail-left">
+                            <div class="pay-detail-label">Poznámka k platbě</div>
+                            <div class="pay-detail-value">${msgNote}</div>
+                        </div>
+                        <button class="copy-detail-btn" onclick="copyDetail(this, '${msgNote}')">📋 Kopírovat</button>
+                    </div>
+
+                    <div class="pay-instructions">
+                        <div class="pay-instructions-title">⚠️ Důležité pokyny</div>
+                        <p>
+                            1. Pošli platbu přes PayPal na e-mail výše ("Odeslat peníze").<br>
+                            2. Do <strong>poznámky</strong> napiš svůj nick a rank.<br>
+                            3. Posílej jako <strong>"Pro přátele a rodinu"</strong> (bez poplatku).<br>
+                            4. Po odeslání klikni na <strong>"Zaplatil jsem"</strong>.<br>
+                            5. Rank bude aktivován po ověření platby (většinou do 24h).
+                        </p>
+                    </div>
+                `;
+            }
+
+            hideModal('step2Modal');
+            showModal('step3Modal');
+        }
+
+        function copyDetail(btn, text) {
+            navigator.clipboard.writeText(text).then(() => {
+                btn.textContent = '✓ Zkopírováno!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = '📋 Kopírovat';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        function confirmPurchase() {
+            const info = getOrderInfo();
+
+            // Send to Discord
+            sendToDiscord(info.nick, info.discord, info.rank, info.duration, info.price, currentMethod);
+
+            hideModal('step3Modal');
+            document.getElementById('successText').innerHTML =
+                '<strong>' + info.nick + '</strong> · ' + info.rank + ' · ' + info.duration + ' · ' + info.price + '<br>Platba: ' + currentMethod;
+            showModal('successModal');
+        }
+
+        function sendToDiscord(nick, discord, rank, duration, price, method) {
+            if (!DISCORD_WEBHOOK || DISCORD_WEBHOOK === 'TVUJ_WEBHOOK_URL_ZDE') return;
+
+            const colors = { Silver: 0x94a3b8, Gold: 0xf59e0b, Diamond: 0x0ea5e9, Bedrock: 0x475569, Ultimate: 0xd946ef, 'V.I.P': 0xfbbf24 };
+            const color = colors[rank] || 0x7c3aed;
+
+            const fields = [
+                { name: '👤 Minecraft Nick', value: '`' + nick + '`', inline: true },
+                { name: '🏅 Rank', value: rank, inline: true },
+                { name: '⏱️ Trvání', value: duration, inline: true },
+                { name: '💰 Cena', value: price, inline: true },
+                { name: '💳 Platba', value: method, inline: true },
+            ];
+            if (discord) fields.push({ name: '💬 Discord', value: discord, inline: true });
+
+            const body = {
+                embeds: [{
+                    title: '🛒 Nová objednávka — ' + rank,
+                    color: color,
+                    fields: fields,
+                    footer: { text: 'XeloriaLand Shop' },
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            fetch(DISCORD_WEBHOOK, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            }).catch(() => { });
+        }
+
+        function showModal(id) {
+            const el = document.getElementById(id);
+            el.style.display = 'flex';
+            requestAnimationFrame(() => el.classList.add('active'));
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideModal(id) {
+            const el = document.getElementById(id);
+            el.classList.remove('active');
+            setTimeout(() => el.style.display = 'none', 300);
+        }
+
+        function closeAll() {
+            ['step1Modal', 'step2Modal', 'step3Modal', 'successModal'].forEach(hideModal);
+            document.body.style.overflow = '';
+        }
+
+        // Close on overlay click
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', e => { if (e.target === overlay) closeAll(); });
+        });
+    </script>
+</body>
+
+</html>

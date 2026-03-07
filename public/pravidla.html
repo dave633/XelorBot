@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pravidla | XeloriaLand</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #0f071a;
+            --bg-card: #1a0b2e;
+            --accent-purple: #7c3aed;
+            --accent-red: #ef4444;
+            --text-main: #f5f5f5;
+            --text-dim: #a78bfa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .bg-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% -20%, #4c1d95 0%, transparent 60%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        header {
+            padding: 1.5rem 2rem;
+            background: rgba(15, 7, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            color: var(--text-main);
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: glitch 3s infinite alternate;
+            text-decoration: none;
+        }
+
+        @keyframes glitch {
+            0% {
+                text-shadow: 2px 0 0 #ef4444, -2px 0 0 #7c3aed;
+            }
+
+            20% {
+                text-shadow: -2px 0 0 #ef4444, 2px 0 0 #7c3aed;
+            }
+
+            40% {
+                text-shadow: 3px 0 0 #ef4444, -1px 0 0 #7c3aed;
+            }
+
+            60% {
+                text-shadow: -1px 0 0 #ef4444, 3px 0 0 #7c3aed;
+            }
+
+            80% {
+                text-shadow: 2px 0 0 #ef4444, -2px 0 0 #7c3aed;
+            }
+
+            100% {
+                text-shadow: 0 0 10px var(--accent-red), 0 0 20px var(--accent-red);
+            }
+        }
+
+        .logo span {
+            color: var(--accent-red);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-red);
+        }
+
+        .discord-btn {
+            background: linear-gradient(135deg, #7c3aed 0%, #ef4444 100%);
+            color: white !important;
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            box-shadow: 0 5px 20px rgba(239, 68, 68, 0.4);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .discord-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.6);
+            filter: brightness(1.2);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .meta-box {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            margin-bottom: 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .meta-item strong {
+            display: block;
+            color: var(--accent-red);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .rule-section {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(124, 58, 237, 0.1);
+        }
+
+        h2 {
+            color: var(--accent-red);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rule-list {
+            list-style: none;
+        }
+
+        .rule-list li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .rule-list li::before {
+            content: "•";
+            color: var(--accent-red);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        footer {
+            padding: 4rem 2rem;
+            text-align: center;
+            color: var(--text-dim);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover {
+            color: var(--accent-red);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-glow"></div>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">⚡ XELORIA<span>LAND</span></a>
+            <div class="nav-links">
+                <a href="index.html">Domů</a>
+                <a href="pravidla.html" style="color: var(--accent-red);">Pravidla</a>
+                <a href="youtube.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 20" width="20" height="14"
+                        style="margin-right: 5px;">
+                        <path
+                            d="M14.4848 20C14.4848 20 23.5695 20 25.8229 19.4C27.0917 19.06 28.0459 18.08 28.3808 16.87C29 14.65 29 9.98 29 9.98C29 9.98 29 5.34 28.3808 3.14C28.0459 1.9 27.0917 0.94 25.8229 0.61C23.5695 0 14.4848 0 14.4848 0C14.4848 0 5.42037 0 3.17711 0.61C1.9286 0.94 0.954148 1.9 0.59888 3.14C0 5.34 0 9.98 0 9.98C0 9.98 0 14.65 0.59888 16.87C0.954148 18.08 1.9286 19.06 3.17711 19.4C5.42037 20 14.4848 20 14.4848 20Z"
+                            fill="#FF0033"></path>
+                        <path d="M19 10L11.5 5.75V14.25L19 10Z" fill="white"></path>
+                    </svg>
+                    Youtube
+                </a>
+                <a href="vip.html">🎊 Shop</a>
+                <a href="nabory.html">📋 Nábory</a>
+                <a href="servery.html">🖥️ Servery</a>
+                <a href="at.html">👑 Admin Team</a>
+                <a href="https://discord.gg/BYRYwNwn" class="discord-btn" target="_blank">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.419-2.157 2.419zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.419-2.157 2.419z" />
+                    </svg>
+                    Discord
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <a href="index.html" class="back-btn">← Zpět na hlavní stránku</a>
+        <h1>Pravidla Serveru</h1>
+
+        <div class="meta-box">
+            <div class="meta-item">
+                <strong>Autor pravidel</strong>
+                Matěj Holý
+            </div>
+            <div class="meta-item">
+                <strong>Kontakt</strong>
+                +420 732 825 291
+            </div>
+            <div class="meta-item">
+                <strong>Datum</strong>
+                23. 2. 2026
+            </div>
+        </div>
+
+        <section class="rule-section">
+            <h2>1. Obecná pravidla</h2>
+            <ul class="rule-list">
+                <li>Respektuj všechny hráče i členy Admin týmu.</li>
+                <li>Zákaz jakékoliv formy toxicity, urážek nebo šikany.</li>
+                <li>Zákaz propagace jiných serverů (reklama).</li>
+                <li>Zákaz vydávání se za člena Admin týmu.</li>
+                <li>Neznalost pravidel neomlouvá.</li>
+            </ul>
+        </section>
+
+        <section class="rule-section">
+            <h2>2. Herní pravidla (Minecraft)</h2>
+            <ul class="rule-list">
+                <li>Zákaz používání jakýchkoliv cheatů (X-ray, KillAura, Fly, atd.).</li>
+                <li>Zákaz zneužívání bugů hry nebo serveru. Nalezené bugy ihned ohlas.</li>
+                <li>Griefing (ničení cizích staveb) je přísně zakázán.</li>
+                <li>Zákaz krádeží věcí ostatním hráčům.</li>
+                <li>Zákaz TP-killů a vytváření pastí pro hráče.</li>
+            </ul>
+        </section>
+
+        <section class="rule-section">
+            <h2>3. Pravidla komunikace</h2>
+            <ul class="rule-list">
+                <li>Zákaz spamu, floodu a nadměrného používání Caps Locku.</li>
+                <li>Zákaz sdílení osobních údajů (doxxing).</li>
+                <li>Zákaz nevhodného obsahu (NSFW, gore, rasismus, xenofobie).</li>
+                <li>Pingování A-Teamu pouze v odůvodněných případech.</li>
+            </ul>
+        </section>
+
+        <section class="rule-section">
+            <h2>4. Tresty</h2>
+            <ul class="rule-list">
+                <li>Tresty jsou udělovány individuálně podle závažnosti prohřešku.</li>
+                <li>Admin tým má právo upravit trest nebo udělit ban bez varování.</li>
+                <li>Opakované porušování pravidel vede k permanentnímu blacklistu.</li>
+            </ul>
+        </section>
+    </div>
+
+    <footer>
+        <p>© 2026 XeloriaLand — Všechna práva vyhrazena</p>
+    </footer>
+</body>
+
+</html>

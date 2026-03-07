@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XeloriaLand | Minecraft Server</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #0f071a;
+            --bg-card: #1a0b2e;
+            --accent-purple: #7c3aed;
+            --accent-red: #ef4444;
+            --text-main: #f5f5f5;
+            --text-dim: #a78bfa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Background effects */
+        .bg-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% -20%, #4c1d95 0%, transparent 60%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        header {
+            padding: 1.5rem 2rem;
+            background: rgba(15, 7, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            color: var(--text-main);
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: glitch 3s infinite alternate;
+        }
+
+        @keyframes glitch {
+            0% {
+                text-shadow: 2px 0 0 #ef4444, -2px 0 0 #7c3aed;
+            }
+
+            20% {
+                text-shadow: -2px 0 0 #ef4444, 2px 0 0 #7c3aed;
+            }
+
+            40% {
+                text-shadow: 3px 0 0 #ef4444, -1px 0 0 #7c3aed;
+            }
+
+            60% {
+                text-shadow: -1px 0 0 #ef4444, 3px 0 0 #7c3aed;
+            }
+
+            80% {
+                text-shadow: 2px 0 0 #ef4444, -2px 0 0 #7c3aed;
+            }
+
+            100% {
+                text-shadow: 0 0 10px var(--accent-red), 0 0 20px var(--accent-red);
+            }
+        }
+
+        .logo span {
+            color: var(--accent-red);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-red);
+        }
+
+        .discord-btn {
+            background: linear-gradient(135deg, #7c3aed 0%, #ef4444 100%);
+            color: white !important;
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            box-shadow: 0 5px 20px rgba(239, 68, 68, 0.4);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .discord-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.6);
+            filter: brightness(1.2);
+        }
+
+        /* YouTube Section */
+        .youtube-section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .youtube-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .yt-card {
+            background: var(--bg-card);
+            border: 2px solid rgba(255, 0, 0, 0.2);
+            border-radius: 24px;
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .yt-card:hover {
+            transform: translateY(-15px);
+            border-color: #ff0000;
+            box-shadow: 0 15px 45px rgba(255, 0, 0, 0.2);
+        }
+
+        .yt-icon-anime {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-10px) rotate(5deg);
+            }
+        }
+
+        .yt-name {
+            font-size: 1.6rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+
+        .yt-sub {
+            color: #ff0000;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+        }
+
+        .yt-btn {
+            margin-top: 2rem;
+            background: #ff0000;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+
+        .yt-card:hover .yt-btn {
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+            transform: scale(1.1);
+        }
+
+        /* Super Anime YouTube Section */
+        .youtube-section {
+            padding: 8rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .youtube-bg-text {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 10rem;
+            font-weight: 900;
+            color: rgba(239, 68, 68, 0.03);
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: -1;
+            text-transform: uppercase;
+        }
+
+        .youtube-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .yt-card {
+            background: rgba(26, 11, 46, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 20px;
+            padding: 3.5rem 2rem;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            text-decoration: none;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .yt-card::before {
+            content: "ユーチューブ";
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 0.7rem;
+            color: rgba(239, 68, 68, 0.4);
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .yt-card:hover {
+            transform: translateY(-20px) scale(1.02);
+            border-color: var(--accent-red);
+            box-shadow: 0 20px 60px rgba(239, 68, 68, 0.25);
+            background: rgba(239, 68, 68, 0.05);
+        }
+
+        .yt-card:hover .yt-frame {
+            transform: rotate(180deg) scale(1.1);
+            border-radius: 30%;
+        }
+
+        .yt-frame {
+            width: 140px;
+            height: 140px;
+            border: 3px solid var(--accent-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            position: relative;
+            transition: all 0.8s ease;
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+        }
+
+        .yt-frame::after {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 50%;
+            animation: pulse-ring 2s infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(0.9);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .yt-img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            filter: grayscale(0.2) contrast(1.1);
+            transition: all 0.3s;
+        }
+
+        .yt-card:hover .yt-img {
+            filter: grayscale(0) contrast(1.2);
+            transform: scale(1.1);
+        }
+
+        .yt-info {
+            text-align: center;
+            z-index: 2;
+        }
+
+        .yt-jp-text {
+            color: var(--accent-red);
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            display: block;
+            margin-bottom: 0.5rem;
+            opacity: 0.7;
+        }
+
+        .yt-name {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            text-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+        }
+
+        .yt-sub {
+            color: var(--text-dim);
+            font-weight: 600;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+        }
+
+        .yt-btn {
+            margin-top: 2.5rem;
+            background: linear-gradient(135deg, #ff0000 0%, #8b0000 100%);
+            color: white;
+            padding: 1rem 3rem;
+            border-radius: 12px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero {
+            padding: 8rem 2rem;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .hero-jp {
+            font-size: 0.95rem;
+            font-weight: 800;
+            letter-spacing: 6px;
+            color: var(--accent-purple);
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-bottom: 1.2rem;
+            display: block;
+        }
+
+        .hero-title {
+            font-size: 6rem;
+            font-weight: 900;
+            letter-spacing: -4px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #c084fc 0%, #7c3aed 40%, #a855f7 70%, #e879f9 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 30px rgba(168, 85, 247, 0.6));
+            animation: heroFloat 3s ease-in-out infinite;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-title .land {
+            background: linear-gradient(135deg, #f9a8d4 0%, #ef4444 50%, #f87171 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes heroFloat {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+                filter: drop-shadow(0 0 30px rgba(168, 85, 247, 0.6));
+            }
+
+            50% {
+                transform: translateY(-18px);
+                filter: drop-shadow(0 25px 40px rgba(168, 85, 247, 0.9));
+            }
+        }
+
+        .hero-sub {
+            display: block;
+            font-size: 1rem;
+            font-weight: 700;
+            color: rgba(167, 139, 250, 0.6);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-dim);
+            max-width: 700px;
+            margin: 0 auto 3.5rem;
+        }
+
+        /* Server Info Button */
+        .server-info-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.3), rgba(239, 68, 68, 0.3));
+            border: 2px solid rgba(124, 58, 237, 0.5);
+            border-radius: 50px;
+            padding: 0.8rem 2.2rem;
+            margin-bottom: 2rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: var(--text-main);
+            font-weight: 800;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: infoBtnPulse 3s ease-in-out infinite alternate;
+        }
+
+        .server-info-btn:hover {
+            transform: translateY(-5px) scale(1.08);
+            border-color: var(--accent-red);
+            box-shadow: 0 10px 40px rgba(239, 68, 68, 0.4);
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.5), rgba(239, 68, 68, 0.5));
+        }
+
+        @keyframes infoBtnPulse {
+            0% {
+                box-shadow: 0 0 15px rgba(124, 58, 237, 0.3);
+            }
+
+            100% {
+                box-shadow: 0 0 30px rgba(239, 68, 68, 0.4);
+            }
+        }
+
+        .server-info-btn .btn-icon {
+            font-size: 1.3rem;
+        }
+
+        /* ===== Server Info Modal ===== */
+        .si-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .si-overlay.active {
+            opacity: 1;
+        }
+
+        .si-modal {
+            position: relative;
+            width: 90%;
+            max-width: 700px;
+            border-radius: 28px;
+            overflow: hidden;
+            border: 2px solid rgba(124, 58, 237, 0.3);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 60px rgba(124, 58, 237, 0.2);
+            transform: scale(0.9) translateY(30px);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .si-overlay.active .si-modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .si-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('img/server_info_bg.png');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.35) saturate(1.3);
+            z-index: 0;
+        }
+
+        .si-content {
+            position: relative;
+            z-index: 2;
+            padding: 3rem;
+            background: linear-gradient(180deg, rgba(15, 7, 26, 0.5) 0%, rgba(15, 7, 26, 0.85) 100%);
+        }
+
+        .si-close {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.5rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .si-close:hover {
+            background: rgba(239, 68, 68, 0.3);
+            border-color: var(--accent-red);
+            transform: rotate(90deg);
+        }
+
+        .si-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .si-logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            margin-bottom: 0.3rem;
+            background: linear-gradient(135deg, #c084fc 0%, #7c3aed 40%, #a855f7 70%, #e879f9 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.5));
+        }
+
+        .si-logo .si-land {
+            background: linear-gradient(135deg, #f9a8d4 0%, #ef4444 50%, #f87171 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .si-subtitle {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-dim);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .si-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+        }
+
+        .si-item {
+            background: rgba(26, 11, 46, 0.6);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 16px;
+            padding: 1.3rem 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .si-item:hover {
+            border-color: rgba(124, 58, 237, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.15);
+        }
+
+        .si-item.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .si-item-label {
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: var(--accent-red);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .si-item-value {
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .si-item-value.mono {
+            font-family: 'Courier New', monospace;
+            font-size: 1.25rem;
+            letter-spacing: 1px;
+        }
+
+        .si-copy-btn {
+            background: rgba(124, 58, 237, 0.3);
+            border: 1px solid rgba(124, 58, 237, 0.4);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .si-copy-btn:hover {
+            background: rgba(124, 58, 237, 0.6);
+            transform: scale(1.05);
+        }
+
+        .si-copy-btn.copied {
+            background: rgba(16, 185, 129, 0.4);
+            border-color: rgba(16, 185, 129, 0.6);
+        }
+
+        .si-partner-link {
+            color: #34d399;
+            text-decoration: none;
+            font-weight: 900;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .si-partner-link:hover {
+            color: #6ee7b7;
+            text-shadow: 0 0 15px rgba(52, 211, 153, 0.5);
+        }
+
+        .si-version-badge {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(239, 68, 68, 0.2));
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            padding: 0.2rem 0.8rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #fbbf24;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .si-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .si-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .si-logo {
+                font-size: 1.8rem;
+            }
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 4rem;
+            font-weight: 800;
+        }
+
+        .section-title span {
+            color: var(--accent-red);
+        }
+
+        /* VIP Slots */
+        .vip-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+            max-width: 1200px;
+            margin: 0 auto 6rem;
+        }
+
+        .vip-card {
+            background: var(--bg-card);
+            border: 2px solid rgba(124, 58, 237, 0.1);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .vip-card:hover {
+            transform: scale(1.05);
+            border-color: var(--accent-red);
+            box-shadow: 0 15px 40px rgba(239, 68, 68, 0.2);
+        }
+
+        .vip-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: block;
+            filter: drop-shadow(0 0 10px var(--accent-purple));
+        }
+
+        .vip-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .vip-desc {
+            color: var(--accent-red);
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .buy-btn {
+            background: linear-gradient(to bottom, #ef4444, #b91c1c);
+            color: white;
+            border: none;
+            padding: 0.8rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .buy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.5);
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .team-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(124, 58, 237, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-red);
+        }
+
+        .team-img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+            border: 4px solid var(--accent-purple);
+            object-fit: cover;
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .team-card:hover .team-img {
+            transform: rotate(360deg) scale(1.1);
+            border-color: var(--accent-red);
+        }
+
+        .team-name {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+            font-size: 0.9rem;
+            color: var(--accent-red);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        footer {
+            padding: 6rem 2rem;
+            text-align: center;
+            background: #0a0512;
+            border-top: 1px solid rgba(124, 58, 237, 0.1);
+            color: var(--text-dim);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-glow"></div>
+
+    <header>
+        <nav>
+            <div class="logo">⚡ XELORIA<span>LAND</span></div>
+            <div class="nav-links">
+                <a href="index.html" style="color: var(--accent-red);">Domů</a>
+                <a href="pravidla.html">Pravidla</a>
+                <a href="youtube.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 20" width="20" height="14"
+                        style="margin-right: 5px;">
+                        <path
+                            d="M14.4848 20C14.4848 20 23.5695 20 25.8229 19.4C27.0917 19.06 28.0459 18.08 28.3808 16.87C29 14.65 29 9.98 29 9.98C29 9.98 29 5.34 28.3808 3.14C28.0459 1.9 27.0917 0.94 25.8229 0.61C23.5695 0 14.4848 0 14.4848 0C14.4848 0 5.42037 0 3.17711 0.61C1.9286 0.94 0.954148 1.9 0.59888 3.14C0 5.34 0 9.98 0 9.98C0 9.98 0 14.65 0.59888 16.87C0.954148 18.08 1.9286 19.06 3.17711 19.4C5.42037 20 14.4848 20 14.4848 20Z"
+                            fill="#FF0033"></path>
+                        <path d="M19 10L11.5 5.75V14.25L19 10Z" fill="white"></path>
+                    </svg>
+                    Youtube
+                </a>
+                <a href="vip.html">🎊 Shop</a>
+                <a href="nabory.html">📋 Nábory</a>
+                <a href="servery.html">🖥️ Servery</a>
+                <a href="at.html">👑 Admin Team</a>
+                <a href="dashboard.html" class="dashboard-link"
+                    style="margin-left: 1rem; padding: 0.5rem 1rem; border: 1px solid rgba(124, 58, 237, 0.4); border-radius: 12px; font-weight: 800; text-transform: uppercase; font-size: 0.85rem; color: var(--accent-purple); display: flex; align-items: center; gap: 10px; text-decoration: none;">
+                    <div
+                        style="width: 24px; height: 24px; border-radius: 50%; background: #2a1a44; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                        <img src="https://mc-heads.net/avatar/steve"
+                            style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    Dashboard
+                </a>
+                <a href="https://discord.gg/BYRYwNwn" class="discord-btn" target="_blank">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.419-2.157 2.419zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.419-2.157 2.419z" />
+                    </svg>
+                    Discord
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <span class="hero-jp">✦ エクセロリアランド ✦</span>
+            <h1>
+                <span class="hero-title">Xeloria<span class="land">Land</span></span>
+            </h1>
+            <span class="hero-sub">⚡ Minecraft Server ⚡</span>
+
+            <p class="hero-subtitle">Vstupte do světa nekonečného dobrodružství, kde vaše fantazie nezná mezí. Připojte
+                se k naší
+                komunitě a napište svůj vlastní příběh.</p>
+
+            <div class="hero-actions">
+                <a href="https://discord.gg/BYRYwNwn" class="discord-btn" target="_blank"
+                    style="padding: 1rem 2.5rem; font-size: 1.1rem;">Přidat se k nám</a>
+                <a href="dashboard.html" class="ticket-btn"
+                    style="margin-left: 1rem; padding: 1rem 2.5rem; border: 2px solid var(--accent-purple); border-radius: 12px; font-weight: 800; text-transform: uppercase; font-size: 1.1rem; color: var(--accent-purple); text-decoration: none; transition: 0.3s; display: inline-flex; align-items: center; gap: 10px;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 20h20"></path>
+                        <path d="M7 32h10"></path>
+                        <path d="M12 2v18"></path>
+                        <path d="M12 22v2"></path>
+                        <rect x="4" y="2" width="16" height="18" rx="2"></rect>
+                    </svg>
+                    Vytvořit Ticket
+                </a>
+            </div>
+            <!-- Server Info Button -->
+            <div class="server-info-btn" onclick="openServerInfo()">
+                <span class="btn-icon">🖥️</span>
+                <span>Server Info</span>
+            </div>
+
+            <div class="hero-buttons">
+                <a href="https://discord.gg/BYRYwNwn" class="discord-btn"
+                    style="display: inline-flex; width: auto; font-size: 1.25rem; padding: 1.2rem 2.8rem;">
+                    VSTOUPIT DO HRY
+                </a>
+                <a href="servery.html" class="discord-btn"
+                    style="display: inline-flex; width: auto; font-size: 1.25rem; padding: 1.2rem 2.8rem; background: linear-gradient(135deg, #10b981 0%, #059669 100%); box-shadow: 0 5px 20px rgba(16, 185, 129, 0.4);">
+                    🖥️ NAŠE SERVERY
+                </a>
+            </div>
+        </section>
+
+
+    </main>
+
+    <!-- Server Info Modal -->
+    <div class="si-overlay" id="serverInfoModal">
+        <div class="si-modal">
+            <div class="si-bg"></div>
+            <div class="si-content">
+                <button class="si-close" onclick="closeServerInfo()">×</button>
+
+                <div class="si-header">
+                    <div class="si-logo">Xeloria<span class="si-land">Land</span></div>
+                    <div class="si-subtitle">✦ Minecraft Server ✦</div>
+                </div>
+
+                <div class="si-grid">
+                    <!-- IP Adresa -->
+                    <div class="si-item full-width">
+                        <div class="si-item-label">🌐 IP Adresa serveru</div>
+                        <div class="si-item-value mono">
+                            omega.goodhost.cz:4119
+                            <button class="si-copy-btn" id="siCopyBtn" onclick="copyServerIP(event)">📋
+                                Kopírovat</button>
+                        </div>
+                    </div>
+
+                    <!-- Provozovatelé -->
+                    <div class="si-item">
+                        <div class="si-item-label">👑 Provozovatelé</div>
+                        <div class="si-item-value">Matěj & Jirka</div>
+                    </div>
+
+                    <!-- Verze -->
+                    <div class="si-item">
+                        <div class="si-item-label">⚡ Verze serveru</div>
+                        <div class="si-item-value">
+                            <span class="si-version-badge">1.21.10+</span>
+                        </div>
+                    </div>
+
+                    <!-- Partnership -->
+                    <div class="si-item full-width">
+                        <div class="si-item-label">🤝 Partnership</div>
+                        <div class="si-item-value">
+                            <a href="https://goodhost.cz" target="_blank" class="si-partner-link">
+                                Goodhost.cz →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openServerInfo() {
+            var modal = document.getElementById('serverInfoModal');
+            modal.style.display = 'flex';
+            requestAnimationFrame(function () {
+                modal.classList.add('active');
+            });
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeServerInfo() {
+            var modal = document.getElementById('serverInfoModal');
+            modal.classList.remove('active');
+            setTimeout(function () {
+                modal.style.display = 'none';
+            }, 400);
+            document.body.style.overflow = '';
+        }
+
+        function copyServerIP(e) {
+            e.stopPropagation();
+            navigator.clipboard.writeText('omega.goodhost.cz:4119').then(function () {
+                var btn = document.getElementById('siCopyBtn');
+                btn.textContent = '✓ Zkopírováno!';
+                btn.classList.add('copied');
+                setTimeout(function () {
+                    btn.textContent = '📋 Kopírovat';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Close on overlay click
+        document.getElementById('serverInfoModal').addEventListener('click', function (e) {
+            if (e.target === this) closeServerInfo();
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeServerInfo();
+        });
+    </script>
+
+    <footer>
+        <p>© 2026 XeloriaLand — Všechna práva vyhrazena</p>
+        <p style="margin-top: 0.5rem; font-size: 0.8rem;"></p>
+    </footer>
+</body>
+
+</html>
