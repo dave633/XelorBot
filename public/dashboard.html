@@ -637,7 +637,7 @@
         <h1 class="logo" style="font-size: 3rem; margin-bottom: 2rem;">⚡ XELORIA<span>LAND</span></h1>
         <p style="color: var(--text-dim); margin-bottom: 3rem; font-size: 1.2rem;">Pro přístup k ticketům se musíš
             přihlásit přes Discord.</p>
-        <a href="http://localhost:3001/auth/discord" class="discord-btn"
+        <a href="/auth/discord" class="discord-btn"
             style="padding: 1.2rem 3rem; font-size: 1.1rem; text-decoration: none;">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 15px;">
                 <path
@@ -650,7 +650,7 @@
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
     <script>
         // NASTAVENÍ ADRESY BOTA (Změň po nahrání bota na hosting)
-        const API_URL = 'http://localhost:3001';
+        const API_URL = window.location.origin;
 
         const socket = io(API_URL);
         let currentTicketId = null;
@@ -687,7 +687,7 @@
         async function loadTickets() {
             if (!currentUser) return;
             try {
-                const res = await fetch('http://localhost:3001/api/tickets');
+                const res = await fetch('/api/tickets');
                 const tickets = await res.json();
 
                 ticketList.innerHTML = '';
@@ -802,5 +802,6 @@
         setInterval(loadTickets, 10000); 
     </script>
 </body>
+
 
 </html>
