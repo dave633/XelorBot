@@ -20,7 +20,6 @@ const { handleTicketCreate, handleTicketClose, handleNaborPosition } = require('
 const { handleNaborApply, handleNaborDecision } = require('./modules/nabor');
 const { handleSelfroleButton } = require('./modules/selfroles');
 const { handleChatCommand } = require('./modules/chatcommands');
-const { handleAutoMod } = require('./modules/automod');
 const { handleEconomy } = require('./modules/economy');
 const { handleVoteButton } = require('./modules/voting');
 const { handleGiveawayButton } = require('./modules/giveaway');
@@ -74,7 +73,7 @@ if (fs.existsSync(commandsPath)) {
     }
 }
 
-const { checkExpiredBans } = require('./modules/moderation');
+
 
 // ═══ Event: Bot je připraven ═══
 client.once(Events.ClientReady, (readyClient) => {
@@ -84,13 +83,6 @@ client.once(Events.ClientReady, (readyClient) => {
     console.log('═══════════════════════════════════════════');
 
     readyClient.user.setActivity('Xeloria Server', { type: 3 }); // Watching
-
-    // Kontrola vypršelých banů každou minutu
-    setInterval(() => {
-        checkExpiredBans(readyClient);
-    }, 60 * 1000);
-    // Prvotní kontrola při zapnutí
-    checkExpiredBans(readyClient);
 });
 
 // ═══ Event: Interakce (slash příkazy, tlačítka, select menu) ═══
@@ -194,11 +186,7 @@ client.on(Events.MessageCreate, async (message) => {
     if (isAlreadyProcessed(message.id)) return;
 
     try {
-        // AutoMod – kontrola nadávek/rasismu/spamu (ve VŠECH kanálech)
-        if (message.guild) {
-            const wasAutoModded = await handleAutoMod(message);
-            if (wasAutoModded) return;
-        }
+
 
         // Nápady
         if (message.channel.id === config.channels.NAPADY) {

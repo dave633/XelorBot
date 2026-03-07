@@ -1,0 +1,56 @@
+[
+  {
+    "id": "WEB-1701",
+    "userId": "1320798380078923888",
+    "username": "m4tejx.lay",
+    "category": "Pomoc / Podpora",
+    "subject": "test",
+    "status": "open",
+    "createdAt": "2026-03-07T19:36:25.275Z",
+    "messages": [
+      {
+        "author": "System",
+        "content": "Vítejte ve vašem webovém ticketu na téma Pomoc / Podpora. Brzy se vám ozveme.",
+        "timestamp": "2026-03-07T19:36:25.275Z"
+      }
+    ]
+  },
+  {
+    "id": "WEB-7537",
+    "userId": "1320798380078923888",
+    "username": "m4tejx.lay",
+    "category": "Pomoc / Podpora",
+    "subject": "c",
+    "status": "open",
+    "createdAt": "2026-03-07T19:38:49.068Z",
+    "messages": [
+      {
+        "author": "System",
+        "content": "Vítejte ve vašem webovém ticketu na téma Pomoc / Podpora. Brzy se vám ozveme.",
+        "timestamp": "2026-03-07T19:38:49.068Z"
+      },
+      {
+        "author": "m4tejx.lay",
+        "userId": "1320798380078923888",
+        "content": "ok",
+        "timestamp": "2026-03-07T19:38:55.383Z"
+      }
+    ]
+  },
+  {
+    "id": "WEB-2077",
+    "userId": "1320798380078923888",
+    "username": "m4tejx.lay",
+    "category": "Ostatní / Jiné",
+    "subject": "cs",
+    "status": "open",
+    "createdAt": "2026-03-07T19:46:21.635Z",
+    "messages": [
+      {
+        "author": "System",
+        "content": "Vítejte ve vašem webovém ticketu na téma Ostatní / Jiné. Brzy se vám ozveme.",
+        "timestamp": "2026-03-07T19:46:21.635Z"
+      }
+    ]
+  }
+]

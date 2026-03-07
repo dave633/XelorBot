@@ -1,11 +1,24 @@
 {
   "1320798380078923888": {
-    "wallet": 844,
+    "wallet": 1609,
     "bank": 0,
-    "lastWork": 1772506203545,
-    "lastClaim": 1772506229466,
-    "lastCrime": 0,
-    "lastRob": 1772506247396
+    "lastWork": 1772896594773,
+    "lastClaim": 1772896603464,
+    "lastCrime": 1772896600497,
+    "lastRob": 1772506247396,
+    "earnings": {
+      "daily": 765,
+      "dailyReset": 1772896594774,
+      "weekly": 765,
+      "weeklyReset": 1772896594774,
+      "tweekly": 765,
+      "tweeklyReset": 1772896594774,
+      "monthly": 765,
+      "monthlyReset": 1772896594774,
+      "yearly": 765,
+      "yearlyReset": 1772896594774,
+      "alltime": 765
+    }
   },
   "1433833178459541657": {
     "wallet": 0,
