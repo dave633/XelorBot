@@ -17,6 +17,9 @@ function setupWebServer(client) {
         cors: { origin: "*", methods: ["GET", "POST"] }
     });
 
+    // Oprava pro Render (Proxy)
+    app.set('trust proxy', 1);
+
     app.use(cors());
     app.use(express.json());
 
@@ -58,8 +61,9 @@ function setupWebServer(client) {
             clientSecret: process.env.CLIENT_SECRET,
             callbackURL: process.env.CALLBACK_URL,
             scope: ['identify', 'guilds'],
-            state: true
+            state: false // Vypnuto pro vyšší kompatibilitu na Renderu
         }, (accessToken, refreshToken, profile, done) => {
+            console.log('✅ Token získán pro uživatele:', profile.username);
             return done(null, profile);
         }));
 
@@ -67,7 +71,10 @@ function setupWebServer(client) {
 
         app.get('/auth/discord/callback', (req, res, next) => {
             passport.authenticate('discord', (err, user, info) => {
-                if (err) return res.send(`Chyba: ${err.message}`);
+                if (err) {
+                    console.error('❌ CHYBA AUTENTIZACE:', err);
+                    return res.send(`Chyba: ${err.message}. Zkontrolujte logy na Renderu.`);
+                }
                 if (!user) return res.redirect('/');
                 req.logIn(user, (err) => {
                     if (err) return next(err);
