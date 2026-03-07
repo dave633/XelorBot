@@ -7,6 +7,7 @@ const passport = require('passport');
 const DiscordStrategy = require('passport-discord').Strategy;
 const path = require('path');
 const config = require('../config');
+const { handleWebTickets } = require('./web_tickets_logic');
 
 function setupWebServer(client) {
     console.log('🚀 INICIALIZACE WEBSERVERU...');
@@ -75,77 +76,51 @@ function setupWebServer(client) {
             })(req, res, next);
         });
 
-        app.get('/api/user', (req, res) => {
+        app.get('/api/user', async (req, res) => {
             if (req.isAuthenticated()) {
-                res.json({
-                    loggedIn: true,
-                    username: req.user.username,
-                    avatar: `https://cdn.discordapp.com/avatars/${req.user.id}/${req.user.avatar}.png`,
-                    id: req.user.id
-                });
+                try {
+                    const guild = client.guilds.cache.get(config.GUILD_ID || process.env.GUILD_ID);
+                    let member = guild?.members.cache.get(req.user.id);
+
+                    // If not in cache, try to fetch it
+                    if (!member && guild) {
+                        try {
+                            member = await guild.members.fetch(req.user.id);
+                        } catch (e) {
+                            console.error('API/User: Member fetch error', e.message);
+                        }
+                    }
+
+                    const isStaff = config.staffRoles.some(roleId => member?.roles.cache.has(roleId));
+
+                    res.json({
+                        loggedIn: true,
+                        username: req.user.username,
+                        avatar: `https://cdn.discordapp.com/avatars/${req.user.id}/${req.user.avatar}.png`,
+                        id: req.user.id,
+                        isStaff: !!isStaff
+                    });
+                } catch (err) {
+                    console.error('API/User Error:', err);
+                    res.json({ loggedIn: true, id: req.user.id, isStaff: false });
+                }
             } else {
                 res.json({ loggedIn: false });
             }
         });
+
+        app.get('/logout', (req, res) => {
+            req.logout(() => {
+                res.redirect('/');
+            });
+        });
     }
 
-    app.get('/api/tickets', async (req, res) => {
-        const guild = client.guilds.cache.get(process.env.GUILD_ID);
-        if (!guild) return res.json([]);
-        const channels = guild.channels.cache.filter(c => c.name.startsWith('ticket-'));
-        res.json(channels.map(c => ({ id: c.id, name: c.name })));
-    });
-
+    // Socket.io
     io.on('connection', (socket) => {
-        socket.on('join_ticket', (id) => socket.join(id));
-        socket.on('send_message', async (data) => {
-            const { ticketId, message, user, userId, avatar } = data;
-            const guild = client.guilds.cache.get(process.env.GUILD_ID);
-            const channel = guild?.channels.cache.get(ticketId);
-
-            if (channel) {
-                try {
-                    // Najdeme nebo vytvoříme Webhook pro tento kanál
-                    let webhooks = await channel.fetchWebhooks();
-                    let webhook = webhooks.find(wh => wh.name === 'XelorBridge');
-
-                    if (!webhook) {
-                        webhook = await channel.createWebhook({
-                            name: 'XelorBridge',
-                            avatar: client.user.displayAvatarURL(),
-                        });
-                    }
-
-                    // Odešleme zprávu jako uživatel (jméno a profilovka z webu/Discordu)
-                    await webhook.send({
-                        content: message,
-                        username: user,
-                        avatarURL: avatar || client.user.displayAvatarURL(),
-                    });
-                } catch (err) {
-                    console.error('Webhook error:', err);
-                    await channel.send(`**${user}:** ${message}`); // Fallback
-                }
-            }
-        });
-
-        // Vytvoření ticketu z webu (Placeholder - propojí se s tickets.js)
-        socket.on('create_ticket', async (data) => {
-            const { userId, username, category } = data;
-            // Zde by se zavolala funkce z modules/tickets.js
-            console.log(`🎫 Požadavek na nový ticket od ${username} (${category})`);
-        });
-    });
-
-    client.on('messageCreate', (msg) => {
-        if (msg.author.bot) return;
-        if (msg.channel.name?.startsWith('ticket-')) {
-            io.to(msg.channel.id).emit('receive_message', {
-                author: msg.author.username,
-                content: msg.content,
-                isStaff: config.staffRoles.some(r => msg.member?.roles.cache.has(r))
-            });
-        }
+        console.log('🔌 Nové webové připojení');
+        // Připojení logiky samostatných webových ticketů
+        handleWebTickets(io, socket, client);
     });
 
     const PORT = process.env.PORT || 3001;

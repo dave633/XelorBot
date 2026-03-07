@@ -7,7 +7,6 @@ const {
     ButtonBuilder, ButtonStyle, ChannelType, PermissionFlagsBits
 } = require('discord.js');
 const config = require('../config');
-const { sendNaborPanel } = require('./nabor');
 
 const ticketCategories = [
     { label: '📋 Nábor', value: 'nabor', description: 'Žádost o nábor do týmu', adminOnly: false },
