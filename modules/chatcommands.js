@@ -39,7 +39,7 @@ async function handleChatCommand(message) {
     if (content === '!web') {
         const embed = new EmbedBuilder()
             .setTitle('🌐 Xeloria Web')
-            .setDescription('Navštiv náš oficiální web!\n\n🔗 **[xelorialand.netlify.app](https://xelorialand.netlify.app)**')
+            .setDescription('Navštiv náš oficiální web!\n\n🔗 **[Náš web:](https://xelorbot.onrender.com/)**')
             .setColor(0x5865F2)
             .setTimestamp()
             .setFooter({ text: 'Xeloria Land' });

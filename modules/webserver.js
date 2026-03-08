@@ -23,14 +23,13 @@ function setupWebServer(client) {
     app.use(cors());
     app.use(express.json());
 
-    // TESTOVACÍ ROUTA - musí fungovat jako první
+    // TESTOVACÍ ROUTA
     app.get('/test', (req, res) => {
         res.send('SERVER JE OK! Pokud toto vidíš, bot funguje.');
     });
 
     const webPath = path.join(__dirname, '../public');
 
-    // Ruční obsluha souborů pro jistotu
     app.get('/dashboard.html', (req, res) => {
         res.sendFile(path.join(webPath, 'dashboard.html'));
     });
@@ -46,7 +45,11 @@ function setupWebServer(client) {
         secret: process.env.SESSION_SECRET || 'xeloria_secret_123',
         resave: false,
         saveUninitialized: false,
-        cookie: { secure: false }
+        proxy: true,
+        cookie: {
+            secure: !!process.env.RENDER, // True na Renderu (přes HTTPS), false pro localhost
+            maxAge: 1000 * 60 * 60 * 24 // 1 den
+        }
     }));
 
     app.use(passport.initialize());
@@ -56,12 +59,14 @@ function setupWebServer(client) {
     passport.deserializeUser((obj, done) => done(null, obj));
 
     if (process.env.CLIENT_ID && process.env.CLIENT_SECRET) {
+        console.log(`📡 Konfigurace Discord OAuth: ID=${process.env.CLIENT_ID ? 'OK' : 'CHYBÍ'}, URL=${process.env.CALLBACK_URL}`);
+
         passport.use(new DiscordStrategy({
             clientID: process.env.CLIENT_ID,
             clientSecret: process.env.CLIENT_SECRET,
             callbackURL: process.env.CALLBACK_URL,
             scope: ['identify', 'guilds'],
-            state: false // Vypnuto pro vyšší kompatibilitu na Renderu
+            state: false
         }, (accessToken, refreshToken, profile, done) => {
             console.log('✅ Token získán pro uživatele:', profile.username);
             return done(null, profile);
@@ -89,7 +94,6 @@ function setupWebServer(client) {
                     const guild = client.guilds.cache.get(config.GUILD_ID || process.env.GUILD_ID);
                     let member = guild?.members.cache.get(req.user.id);
 
-                    // If not in cache, try to fetch it
                     if (!member && guild) {
                         try {
                             member = await guild.members.fetch(req.user.id);
@@ -126,14 +130,12 @@ function setupWebServer(client) {
     // Socket.io
     io.on('connection', (socket) => {
         console.log('🔌 Nové webové připojení');
-        // Připojení logiky samostatných webových ticketů
         handleWebTickets(io, socket, client);
     });
 
     const PORT = process.env.PORT || 3001;
     server.listen(PORT, () => {
         console.log(`🌐 SERVER BĚŽÍ NA PORTU: ${PORT}`);
-        console.log(`📂 PRODUKČNÍ CESTA: ${webPath}`);
     });
 }
 

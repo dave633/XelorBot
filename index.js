@@ -54,19 +54,24 @@ const client = new Client({
     ],
 });
 
+// ═══ Spuštění Admin bota (Moderace) ═══
+const { setupAdminBot } = require('./modules/admin_bot');
+const adminClient = setupAdminBot();
+
 // ═══ Načtení příkazů ═══
 client.commands = new Collection();
+adminClient.commands = new Collection();
 const commandsPath = path.join(__dirname, 'commands');
 
 if (fs.existsSync(commandsPath)) {
     const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
     for (const file of commandFiles) {
         const exported = require(path.join(commandsPath, file));
-        // Podpora pro export pole příkazů (např. leaderboard.js)
         const commandList = Array.isArray(exported) ? exported : [exported];
         for (const command of commandList) {
             if ('data' in command && 'execute' in command) {
                 client.commands.set(command.data.name, command);
+                adminClient.commands.set(command.data.name, command);
                 console.log(`✅ Příkaz načten: /${command.data.name}`);
             }
         }
@@ -86,11 +91,11 @@ client.once(Events.ClientReady, (readyClient) => {
 });
 
 // ═══ Event: Interakce (slash příkazy, tlačítka, select menu) ═══
-client.on(Events.InteractionCreate, async (interaction) => {
+const handleInteraction = async (interaction, botClient) => {
     try {
         // Slash příkazy
         if (interaction.isChatInputCommand()) {
-            const command = client.commands.get(interaction.commandName);
+            const command = botClient.commands.get(interaction.commandName);
             if (!command) return;
 
             try {
@@ -174,7 +179,14 @@ client.on(Events.InteractionCreate, async (interaction) => {
     } catch (error) {
         console.error('Chyba v interakci:', error);
     }
-});
+};
+
+client.on(Events.InteractionCreate, (interaction) => handleInteraction(interaction, client));
+adminClient.on(Events.InteractionCreate, (interaction) => handleInteraction(interaction, adminClient));
+
+const interactionHandlingRemovedMarker = true;
+// Pozor: Smazal jsem starý blok client.on(Events.InteractionCreate) níže.
+
 
 // ═══ Event: Nová zpráva ═══
 client.on(Events.MessageCreate, async (message) => {

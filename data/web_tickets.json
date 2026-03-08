@@ -5,13 +5,18 @@
     "username": "m4tejx.lay",
     "category": "Pomoc / Podpora",
     "subject": "test",
-    "status": "open",
+    "status": "closed",
     "createdAt": "2026-03-07T19:36:25.275Z",
     "messages": [
       {
         "author": "System",
         "content": "Vítejte ve vašem webovém ticketu na téma Pomoc / Podpora. Brzy se vám ozveme.",
         "timestamp": "2026-03-07T19:36:25.275Z"
+      },
+      {
+        "author": "System",
+        "content": "Tento ticket byl uzavřen členem týmu.",
+        "timestamp": "2026-03-07T22:02:01.348Z"
       }
     ]
   },
@@ -21,7 +26,7 @@
     "username": "m4tejx.lay",
     "category": "Pomoc / Podpora",
     "subject": "c",
-    "status": "open",
+    "status": "closed",
     "createdAt": "2026-03-07T19:38:49.068Z",
     "messages": [
       {
@@ -34,6 +39,11 @@
         "userId": "1320798380078923888",
         "content": "ok",
         "timestamp": "2026-03-07T19:38:55.383Z"
+      },
+      {
+        "author": "System",
+        "content": "Tento ticket byl uzavřen členem týmu.",
+        "timestamp": "2026-03-07T22:01:55.769Z"
       }
     ]
   },
@@ -43,13 +53,34 @@
     "username": "m4tejx.lay",
     "category": "Ostatní / Jiné",
     "subject": "cs",
-    "status": "open",
+    "status": "closed",
     "createdAt": "2026-03-07T19:46:21.635Z",
     "messages": [
       {
         "author": "System",
         "content": "Vítejte ve vašem webovém ticketu na téma Ostatní / Jiné. Brzy se vám ozveme.",
         "timestamp": "2026-03-07T19:46:21.635Z"
+      },
+      {
+        "author": "System",
+        "content": "Tento ticket byl uzavřen členem týmu.",
+        "timestamp": "2026-03-07T22:01:50.996Z"
+      }
+    ]
+  },
+  {
+    "id": "WEB-4713",
+    "userId": "1320798380078923888",
+    "username": "m4tejx.lay",
+    "category": "Jiný",
+    "subject": "Test",
+    "status": "open",
+    "createdAt": "2026-03-08T12:29:09.999Z",
+    "messages": [
+      {
+        "author": "System",
+        "content": "Vítejte ve vašem webovém ticketu na téma Jiný. Brzy se vám ozveme.",
+        "timestamp": "2026-03-08T12:29:09.999Z"
       }
     ]
   }

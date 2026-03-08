@@ -23,26 +23,30 @@ module.exports = {
         EKONOMIKA: '1467467996824862918',
         HLASOVANI: '1467467704834195487',
         GIVEAWAY: '1467462535224623268',
+        MOD_LOG: '1480024784883552287',
     },
 
     // ═══ ROLE ═══
     roles: {
         OWNER_ADMIN: '1478866092159144046',
         ADMIN: '1466804160786858221',
-        VEDENI_Serveru: '1478865604705517761',
+        VEDENI: '1478865604705517761',
         TICKET_MOD: '1466805359044726954',
-        GIVEAWAY_MOD: '1478840702740725922', // Role s přístupem na /gcreate
-        NEOVERENY: '1467561819483672607', // Role pro neověřené hráče (při připojení)
-        OVERENY: '1467561736457421023',   // Role pro ověřené hráče (po přijetí pravidel)
+        GIVEAWAY_MOD: '1478840702740725922',
+        STAFF_TEAM: '1478840700907819229',
+        PARTNERSTVI: '1466804031925256284',
+        NEOVERENY: '1467561819483672607',
+        OVERENY: '1467561736457421023',
     },
 
-    // Role s admin právy (pro nápady, oznámení, nahlášení AT, převod účtu)
-    adminRoles: ['1478775290808242289', '1478776557962002462','1466804160786858221','1478785007400124457'],
+    // Role s admin právy
+    adminRoles: ['1478775290808242289', '1478776557962002462', '1466804160786858221', '1478785007400124457', '1478865604705517761'],
 
-    // Všechny staff role (helper, owner, admin, vedení, ticket mod)
+    // Všechny staff role
     staffRoles: [
         '1478840700907819229',
         '1466804031925256284',
         '1466805359044726954',
+        '1478865604705517761'
     ],
 };
