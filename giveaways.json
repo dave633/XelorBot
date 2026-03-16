@@ -1,0 +1,36 @@
+[
+  {
+    "messageId": "1482206519595368501",
+    "channelId": "1467462535224623268",
+    "prize": "V.I.P rank na 10d",
+    "host": "m4tejx.lay",
+    "winnersCount": 1,
+    "endAt": 1773463166459,
+    "participants": [
+      "1320798380078923888"
+    ],
+    "ended": true
+  },
+  {
+    "messageId": "1482208230372282370",
+    "channelId": "1467462535224623268",
+    "prize": "V.I.P",
+    "host": "m4tejx.lay",
+    "winnersCount": 1,
+    "endAt": 1773470774791,
+    "participants": [],
+    "ended": true
+  },
+  {
+    "messageId": "1482208626121900154",
+    "channelId": "1467462535224623268",
+    "prize": "V.I.P rank 12d",
+    "host": "m4tejx.lay",
+    "winnersCount": 1,
+    "endAt": 1773470869064,
+    "participants": [
+      "1320798380078923888"
+    ],
+    "ended": true
+  }
+]
